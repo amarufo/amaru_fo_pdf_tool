@@ -137,6 +137,8 @@ python pdftool.py extract-images documento.pdf -o imagenes
 python pdftool.py watermark documento.pdf --text "CONFIDENCIAL" -o marcado.pdf --opacity 0.16
 python pdftool.py pdf-to-images documento.pdf -o paginas --pages 1-3 --dpi 200 --format png
 python pdftool.py images-to-pdf foto1.png foto2.jpg -o desde_imagenes.pdf
+python pdftool.py files-to-txt documento.docx documento.pdf --extensions .docx,.pdf
+python pdftool.py files-to-txt carpeta_documentos --extensions .docx --recursive
 python pdftool.py protect documento.pdf -o protegido.pdf --password "clave"
 python pdftool.py metadata documento.pdf -o metadatos.pdf --title "Expediente" --author "amaru_fo"
 python pdftool.py info documento.pdf
@@ -163,7 +165,12 @@ python pdftool.py unlock firmado.pdf -o libre.pdf --rebuild
 ```powershell
 python pdftool.py totxt documento.pdf -o documento.txt
 python pdftool.py totxt escaneado.pdf -o escaneado.txt --ocr --lang spa
+python pdftool.py files-to-txt informe.docx --extensions .docx
+python pdftool.py files-to-txt informe.docx anexo.pdf --extensions .docx,.pdf
+python pdftool.py files-to-txt carpeta_documentos --extensions .docx,.pdf --recursive
 ```
+
+`files-to-txt` genera cada TXT dentro de la misma carpeta del archivo original. Soporta `.docx` de forma nativa y `.pdf` reutilizando la conversion a texto/OCR.
 
 Para OCR instala tambien Tesseract. En Windows usa el instalador recomendado; en Linux usa el gestor de paquetes de tu distribucion.
 

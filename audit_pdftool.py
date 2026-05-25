@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import tempfile
+import zipfile
 from pathlib import Path
 
 import fitz
@@ -26,6 +27,19 @@ def make_sample_pdf(path: Path) -> None:
     doc.close()
 
 
+def make_sample_docx(path: Path) -> None:
+        document_xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+    <w:body>
+        <w:p><w:r><w:t>Documento Word de auditoria</w:t></w:r></w:p>
+        <w:p><w:r><w:t>Texto extraido desde DOCX hacia TXT.</w:t></w:r></w:p>
+    </w:body>
+</w:document>
+"""
+        with zipfile.ZipFile(path, "w") as docx:
+                docx.writestr("word/document.xml", document_xml)
+
+
 def require_file(path: Path) -> None:
     if not path.exists() or path.stat().st_size == 0:
         raise RuntimeError(f"No se genero correctamente: {path}")
@@ -34,6 +48,9 @@ def require_file(path: Path) -> None:
 def run_audit(output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     sample = output_dir / "sample.pdf"
+    sample_docx = output_dir / "sample_word.docx"
+    sample_docx_txt = output_dir / "sample_word.txt"
+    sample_pdf_txt = output_dir / "sample.txt"
     numbered = output_dir / "sample_numbered.pdf"
     watermarked = output_dir / "sample_watermark.pdf"
     metadata = output_dir / "sample_metadata.pdf"
@@ -44,7 +61,9 @@ def run_audit(output_dir: Path) -> None:
     images_pdf = output_dir / "sample_from_images.pdf"
 
     make_sample_pdf(sample)
+    make_sample_docx(sample_docx)
     require_file(sample)
+    require_file(sample_docx)
 
     pdftool.cmd_number(sample, numbered, reverse=True)
     pdftool.cmd_watermark(sample, watermarked, "AUDITORIA", opacity=0.18)
@@ -54,9 +73,13 @@ def run_audit(output_dir: Path) -> None:
     split_files = pdftool.cmd_split(sample, split_dir, every=1)
     image_files = pdftool.cmd_pdf_to_images(sample, images_dir, pages_spec="1-2", dpi=120)
     pdftool.cmd_images_to_pdf(image_files, images_pdf)
+    pdftool.cmd_files_to_txt([sample_docx, sample], extensions=".docx,.pdf")
 
-    for path in [numbered, watermarked, metadata, protected, merged, images_pdf, *split_files, *image_files]:
+    for path in [numbered, watermarked, metadata, protected, merged, images_pdf, sample_docx_txt, sample_pdf_txt, *split_files, *image_files]:
         require_file(path)
+
+    if "Documento Word de auditoria" not in sample_docx_txt.read_text(encoding="utf-8"):
+        raise RuntimeError("El TXT generado desde DOCX no contiene el texto esperado")
 
     protected_doc = fitz.open(protected)
     if not protected_doc.is_encrypted:

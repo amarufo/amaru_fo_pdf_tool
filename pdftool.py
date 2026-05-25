@@ -26,7 +26,9 @@ import sys
 import tempfile
 import time
 import webbrowser
+import zipfile
 from pathlib import Path
+from xml.etree import ElementTree
 
 try:
     import fitz  # PyMuPDF
@@ -135,6 +137,8 @@ DEFAULT_MARGIN = 25
 DEFAULT_SIGNATURE_WIDTH = 100
 DEFAULT_SIGNATURE_HEIGHT = 40
 DEFAULT_NUMBER_COLOR = "black"
+SUPPORTED_TO_TXT_EXTENSIONS = {".docx", ".pdf"}
+DOCX_WORD_NAMESPACE = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 
 COLOR_MAP = {
     "black": (0, 0, 0),
@@ -801,6 +805,123 @@ def cmd_to_txt(input_pdf: Path, output: Path, ocr: bool, lang: str = "spa") -> N
     show_file("TXT generado", output)
 
 
+def normalize_extensions(extensions: str | list[str] | None) -> set[str]:
+    if extensions is None:
+        return set(SUPPORTED_TO_TXT_EXTENSIONS)
+    raw_values = [extensions] if isinstance(extensions, str) else extensions
+    selected: set[str] = set()
+    for raw_value in raw_values:
+        for part in re.split(r"[,;\s]+", raw_value.strip().lower()):
+            if not part:
+                continue
+            extension = part if part.startswith(".") else f".{part}"
+            if extension not in SUPPORTED_TO_TXT_EXTENSIONS:
+                allowed = ", ".join(sorted(SUPPORTED_TO_TXT_EXTENSIONS))
+                raise ValueError(f"Extension no soportada: {extension}. Permitidas: {allowed}")
+            selected.add(extension)
+    if not selected:
+        raise ValueError("Debes indicar al menos una extension valida")
+    return selected
+
+
+def discover_to_txt_inputs(sources: list[Path], extensions: set[str], recursive: bool = False) -> list[Path]:
+    selected: list[Path] = []
+    seen: set[Path] = set()
+    for source in sources:
+        source = Path(source)
+        if source.is_dir():
+            pattern = "**/*" if recursive else "*"
+            candidates = sorted(path for path in source.glob(pattern) if path.is_file())
+        elif source.is_file():
+            candidates = [source]
+        else:
+            raise FileNotFoundError(f"No existe: {source}")
+        for candidate in candidates:
+            if candidate.suffix.lower() not in extensions:
+                continue
+            resolved = candidate.resolve()
+            if resolved in seen:
+                continue
+            seen.add(resolved)
+            selected.append(candidate)
+    if not selected:
+        allowed = ", ".join(sorted(extensions))
+        raise ValueError(f"No se encontraron archivos con extension: {allowed}")
+    return selected
+
+
+def _docx_tag(name: str) -> str:
+    return f"{{{DOCX_WORD_NAMESPACE}}}{name}"
+
+
+def extract_docx_text(input_docx: Path) -> str:
+    try:
+        with zipfile.ZipFile(input_docx) as docx:
+            document_xml = docx.read("word/document.xml")
+    except KeyError as exc:
+        raise RuntimeError(f"El archivo no parece un DOCX valido: {input_docx}") from exc
+    except zipfile.BadZipFile as exc:
+        raise RuntimeError(f"No se pudo leer el DOCX: {input_docx}") from exc
+
+    root = ElementTree.fromstring(document_xml)
+    paragraphs: list[str] = []
+    for paragraph in root.iter(_docx_tag("p")):
+        parts: list[str] = []
+        for node in paragraph.iter():
+            if node.tag == _docx_tag("t"):
+                parts.append(node.text or "")
+            elif node.tag == _docx_tag("tab"):
+                parts.append("\t")
+            elif node.tag in (_docx_tag("br"), _docx_tag("cr")):
+                parts.append("\n")
+        paragraphs.append("".join(parts).rstrip())
+    text = "\n".join(paragraphs).strip()
+    return f"{text}\n" if text else ""
+
+
+def cmd_files_to_txt(
+    sources: list[Path],
+    extensions: str | list[str] | None = None,
+    recursive: bool = False,
+    ocr: bool = False,
+    lang: str = "spa",
+) -> list[Path]:
+    selected_extensions = normalize_extensions(extensions)
+    files = discover_to_txt_inputs(sources, selected_extensions, recursive=recursive)
+    outputs: list[tuple[Path, Path]] = []
+    failures: list[tuple[Path, Exception]] = []
+    with Progress(SpinnerColumn(), TextColumn("{task.description}"), BarColumn(),
+                  TextColumn("{task.completed}/{task.total}"), console=console) as progress:
+        task = progress.add_task("Convirtiendo archivos a TXT", total=len(files))
+        for input_file in files:
+            output = input_file.with_suffix(".txt")
+            try:
+                if input_file.suffix.lower() == ".docx":
+                    ensure_parent(output)
+                    output.write_text(extract_docx_text(input_file), encoding="utf-8")
+                elif input_file.suffix.lower() == ".pdf":
+                    cmd_to_txt(input_file, output, ocr=ocr, lang=lang)
+                else:
+                    raise ValueError(f"Extension no soportada: {input_file.suffix}")
+                outputs.append((input_file, output))
+            except Exception as exc:
+                failures.append((input_file, exc))
+            progress.advance(task)
+
+    table = Table(title="Conversion a TXT", box=box.ROUNDED, border_style="cyan")
+    table.add_column("Origen", style="cyan")
+    table.add_column("TXT", style="green")
+    for source, output in outputs:
+        table.add_row(str(source.name), str(output.name))
+    console.print(table)
+    ok(f"Archivos convertidos: {len(outputs)}")
+    if failures:
+        for source, exc in failures:
+            warn(f"No se pudo convertir {source}: {type(exc).__name__}: {exc}")
+        raise RuntimeError(f"Fallaron {len(failures)} de {len(files)} conversiones")
+    return [output for _, output in outputs]
+
+
 def cmd_number(
     input_pdf: Path,
     output: Path,
@@ -1160,6 +1281,7 @@ MENU = [
     ("Editar y optimizar", "15", "watermark", "Agregar marca de agua de texto"),
     ("Convertir", "16", "pdf-images", "Convertir paginas de PDF a imagenes"),
     ("Convertir", "17", "images-pdf", "Crear PDF desde imagenes"),
+    ("Convertir", "23", "files-to-txt", "Convertir Word/PDF a TXT por archivo, lista o carpeta"),
     ("Seguridad", "18", "protect", "Proteger PDF con contrasena"),
     ("Seguridad", "19", "metadata", "Editar metadatos del PDF"),
     ("Ayuda", "20", "info", "Ver informacion del PDF"),
@@ -1376,6 +1498,20 @@ def interactive() -> None:
                 inputs = [ask_path(f"Imagen {index + 1}") for index in range(count)]
                 output = Path(Prompt.ask("PDF de salida", default=str(inputs[0].with_name(f"{inputs[0].stem}_imagenes.pdf"))))
                 cmd_images_to_pdf(inputs, output)
+            elif choice == "23":
+                mode = Prompt.ask("Origen", choices=["archivo", "lista", "carpeta"], default="carpeta")
+                if mode == "archivo":
+                    sources = [ask_path("Archivo .docx o .pdf")]
+                elif mode == "lista":
+                    count = IntPrompt.ask("Cuantos archivos quieres convertir", default=1)
+                    sources = [ask_path(f"Archivo {index + 1}") for index in range(count)]
+                else:
+                    sources = [ask_path("Carpeta con documentos", is_dir=True)]
+                extensions = Prompt.ask("Extensiones a convertir", default=".docx,.pdf")
+                recursive = Confirm.ask("Buscar tambien en subcarpetas", default=False) if mode == "carpeta" else False
+                ocr = Confirm.ask("Usar OCR para PDFs escaneados", default=False)
+                lang = Prompt.ask("Idioma OCR", default="spa") if ocr else "spa"
+                cmd_files_to_txt(sources, extensions=extensions, recursive=recursive, ocr=ocr, lang=lang)
             elif choice == "18":
                 src = ask_path("PDF a proteger")
                 password = Prompt.ask("Contrasena para abrir", password=True)
@@ -1592,6 +1728,21 @@ def build_parser() -> argparse.ArgumentParser:
     images_pdf.add_argument("inputs", nargs="+", type=Path)
     images_pdf.add_argument("-o", "--output", type=Path, required=True)
 
+    files_txt = sub.add_parser(
+        "files-to-txt",
+        aliases=["word-to-txt"],
+        help="Convertir DOCX/PDF a TXT desde un archivo, una lista o una carpeta.",
+    )
+    files_txt.add_argument("sources", nargs="+", type=Path, help="Archivos o carpetas de entrada.")
+    files_txt.add_argument(
+        "--extensions",
+        default=".docx,.pdf",
+        help="Extensiones a convertir separadas por coma o espacio. Permitidas: .docx,.pdf",
+    )
+    files_txt.add_argument("--recursive", action="store_true", help="Buscar en subcarpetas cuando la entrada sea una carpeta.")
+    files_txt.add_argument("--ocr", action="store_true", help="Usar OCR al convertir PDFs escaneados.")
+    files_txt.add_argument("--lang", default="spa", help="Idioma OCR para PDFs escaneados.")
+
     watermark = sub.add_parser("watermark", help="Agregar marca de agua de texto.")
     watermark.add_argument("input", type=Path)
     watermark.add_argument("--text", required=True)
@@ -1686,6 +1837,8 @@ def main(argv: list[str] | None = None) -> int:
             cmd_pdf_to_images(args.input, args.output_dir, args.pages, args.dpi, args.format)
         elif args.cmd == "images-to-pdf":
             cmd_images_to_pdf(args.inputs, args.output)
+        elif args.cmd in ("files-to-txt", "word-to-txt"):
+            cmd_files_to_txt(args.sources, args.extensions, args.recursive, args.ocr, args.lang)
         elif args.cmd == "watermark":
             cmd_watermark(args.input, args.output, args.text, args.pages, args.font_size, args.opacity, args.rotate)
         elif args.cmd == "protect":

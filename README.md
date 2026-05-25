@@ -80,6 +80,7 @@ Consejo: cuando te pida una ruta, puedes arrastrar el PDF o la imagen hacia la v
 - Insertar un PDF dentro de otro.
 - Desbloquear o reconstruir PDFs bloqueados.
 - Convertir PDF a TXT/OCR.
+- Convertir Word DOCX y PDFs a TXT por archivo, lista o carpeta.
 - Rotar paginas.
 - Eliminar paginas.
 - Optimizar/comprimir.
@@ -118,5 +119,5 @@ Despues de instalar dependencias, puedes ejecutar una prueba completa con archiv
 python audit_pdftool.py
 ```
 
-La auditoria crea un PDF de muestra y valida numeracion, marca de agua, metadatos, exportacion a imagenes, creacion de PDF desde imagenes y proteccion con contrasena.
+La auditoria crea archivos de muestra y valida numeracion, marca de agua, metadatos, exportacion a imagenes, creacion de PDF desde imagenes, conversion DOCX/PDF a TXT y proteccion con contrasena.
 
