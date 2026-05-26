@@ -217,7 +217,7 @@ def banner() -> None:
     def _mark(flag: bool) -> str:
         return "[green]ON[/green]" if flag else "[dim]off[/dim]"
     info_line = (
-        f"[bold]{AUTHOR_NAME}[/bold] - PDF TOOL Tactical   "
+        f"[bold]{AUTHOR_NAME}[/bold] - PDF TOOL AMARU   "
         f"[cyan]{AUTHOR_PAGE}[/cyan]\n"
         f"Motores -> pymupdf4llm: {_mark(backends['pymupdf4llm'])}  "
         f"Docling: {_mark(backends['docling'])}  "

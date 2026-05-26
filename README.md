@@ -1,4 +1,4 @@
-# amaru_fo PDF TOOL Tactical
+# amaru_fo PDF TOOL AMARU
 
 Suite CLI visual para trabajar con PDFs en Windows y Linux: numerar, firmar, unir, dividir, proteger, convertir a texto y generar salidas Markdown/JSON para agentes IA.
 
@@ -8,7 +8,7 @@ Suite CLI visual para trabajar con PDFs en Windows y Linux: numerar, firmar, uni
 
 ## Que hace
 
-PDF TOOL Tactical esta pensado para trabajo documental de oficina y expedientes: puedes abrir un menu guiado o usar comandos directos. Las funciones principales son:
+PDF TOOL AMARU esta pensado para trabajo documental de oficina y expedientes: puedes abrir un menu guiado o usar comandos directos. Las funciones principales son:
 
 - Foliar y firmar PDFs con vista previa.
 - Unir, dividir, extraer, insertar, rotar y eliminar paginas.

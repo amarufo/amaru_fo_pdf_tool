@@ -32,3 +32,4 @@ audit_linux_output/
 .venv/lib/python3.13/site-packages/nvidia/cu13/lib/libcufft.so.12
 .venv/lib/python3.13/site-packages/nvidia/cu13/lib/libcusparse.so.12
 .venv/lib/python3.13/site-packages/triton/_C/libtriton.so
+.venv/lib/python3.13/site-packages/torch/lib/libtorch_cpu.so
