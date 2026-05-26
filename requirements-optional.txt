@@ -1,3 +1,16 @@
-pikepdf>=9.0
+# Dependencias opcionales del bloque OCR + Desbloqueo avanzado.
+# Instalar todo el bloque con:
+#   .venv/bin/python -m pip install -r requirements-optional.txt
+#
+# OCR: requiere ademas instalar Tesseract a nivel de sistema.
+#   Linux Debian/Ubuntu: sudo apt install tesseract-ocr tesseract-ocr-spa
+#   Windows: https://github.com/UB-Mannheim/tesseract
+#
+# Desbloqueo avanzado de PDFs firmados/certificados con --rebuild usa pikepdf.
+
+# --- OCR ---
 pytesseract>=0.3.13
 pillow>=10.0
+
+# --- Desbloqueo avanzado de PDFs ---
+pikepdf>=9.0

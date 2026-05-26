@@ -138,6 +138,13 @@ DEFAULT_SIGNATURE_WIDTH = 100
 DEFAULT_SIGNATURE_HEIGHT = 40
 DEFAULT_NUMBER_COLOR = "black"
 SUPPORTED_TO_TXT_EXTENSIONS = {".docx", ".pdf"}
+SUPPORTED_AI_EXTENSIONS = {
+    ".pdf", ".docx", ".pptx", ".xlsx",
+    ".html", ".htm", ".md",
+    ".png", ".jpg", ".jpeg", ".tiff", ".tif", ".webp",
+}
+SUPPORTED_AI_FORMATS = {"md", "json"}
+AI_BACKENDS = ("auto", "docling", "marker", "pymupdf4llm")
 DOCX_WORD_NAMESPACE = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 
 COLOR_MAP = {
@@ -169,9 +176,56 @@ def load_intro_art() -> str:
     return ASCII_ART_FILE.read_text(encoding="utf-8", errors="replace").strip() or BANNER
 
 
+def _detect_backends() -> dict[str, bool]:
+    return {
+        "pymupdf4llm": _pymupdf4llm_available(),
+        "docling": _docling_available(),
+        "marker": _marker_available(),
+        "ocr": _detect_tesseract_path() is not None,
+        "pikepdf": _pikepdf_available(),
+    }
+
+
+def _detect_tesseract_path() -> str | None:
+    import os as _os
+    candidates = [
+        shutil.which("tesseract"),
+        "/usr/bin/tesseract",
+        "/usr/local/bin/tesseract",
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+        r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+        _os.path.join(_os.environ.get("LOCALAPPDATA", ""), "Programs", "Tesseract-OCR", "tesseract.exe"),
+    ]
+    for path in candidates:
+        if path and _os.path.exists(path):
+            return path
+    return None
+
+
+def _pikepdf_available() -> bool:
+    try:
+        import importlib.util as _iu
+        return _iu.find_spec("pikepdf") is not None
+    except Exception:
+        return False
+
+
 def banner() -> None:
     intro = Text(load_intro_art(), style="bold cyan")
     console.print(Panel.fit(intro, border_style="cyan"))
+    backends = _detect_backends()
+    def _mark(flag: bool) -> str:
+        return "[green]ON[/green]" if flag else "[dim]off[/dim]"
+    info_line = (
+        f"[bold]{AUTHOR_NAME}[/bold] - PDF TOOL Tactical   "
+        f"[cyan]{AUTHOR_PAGE}[/cyan]\n"
+        f"Motores -> pymupdf4llm: {_mark(backends['pymupdf4llm'])}  "
+        f"Docling: {_mark(backends['docling'])}  "
+        f"Marker: {_mark(backends['marker'])}  "
+        f"OCR: {_mark(backends['ocr'])}  "
+        f"pikepdf: {_mark(backends['pikepdf'])}"
+    )
+    console.print(Panel.fit(info_line, border_style="magenta"))
 
 
 def ok(message: str) -> None:
@@ -922,6 +976,320 @@ def cmd_files_to_txt(
     return [output for _, output in outputs]
 
 
+def _normalize_ai_formats(formats: str | list[str] | None) -> list[str]:
+    if formats is None:
+        return ["md", "json"]
+    raw_values = [formats] if isinstance(formats, str) else formats
+    selected: list[str] = []
+    for raw_value in raw_values:
+        for part in re.split(r"[,;\s]+", str(raw_value).strip().lower()):
+            if not part:
+                continue
+            value = part.lstrip(".")
+            if value not in SUPPORTED_AI_FORMATS:
+                allowed = ", ".join(sorted(SUPPORTED_AI_FORMATS))
+                raise ValueError(f"Formato IA no soportado: {part}. Permitidos: {allowed}")
+            if value not in selected:
+                selected.append(value)
+    if not selected:
+        raise ValueError("Debes indicar al menos un formato (md, json)")
+    return selected
+
+
+def _normalize_ai_extensions(extensions: str | list[str] | None) -> set[str]:
+    if extensions is None:
+        return set(SUPPORTED_AI_EXTENSIONS)
+    raw_values = [extensions] if isinstance(extensions, str) else extensions
+    selected: set[str] = set()
+    for raw_value in raw_values:
+        for part in re.split(r"[,;\s]+", raw_value.strip().lower()):
+            if not part:
+                continue
+            extension = part if part.startswith(".") else f".{part}"
+            if extension not in SUPPORTED_AI_EXTENSIONS:
+                allowed = ", ".join(sorted(SUPPORTED_AI_EXTENSIONS))
+                raise ValueError(f"Extension no soportada para IA: {extension}. Permitidas: {allowed}")
+            selected.add(extension)
+    if not selected:
+        raise ValueError("Debes indicar al menos una extension valida")
+    return selected
+
+
+def _docling_available() -> bool:
+    try:
+        import importlib.util as _iu
+        return _iu.find_spec("docling") is not None
+    except Exception:
+        return False
+
+
+def _marker_available() -> bool:
+    try:
+        import importlib.util as _iu
+        return _iu.find_spec("marker") is not None
+    except Exception:
+        return False
+
+
+def _pymupdf4llm_available() -> bool:
+    try:
+        import importlib.util as _iu
+        return _iu.find_spec("pymupdf4llm") is not None
+    except Exception:
+        return False
+
+
+def _pdf_has_text_layer(path: Path, sample_pages: int = 3) -> bool:
+    """True si el PDF tiene capa de texto extraible (no es solo escaneado)."""
+    if path.suffix.lower() != ".pdf":
+        return True  # DOCX, PPTX, HTML etc. siempre traen texto
+    try:
+        doc = fitz.open(path)
+        try:
+            pages = min(sample_pages, len(doc))
+            total = sum(len((doc[i].get_text() or "").strip()) for i in range(pages))
+            return total >= 50  # umbral: al menos 50 chars en las primeras paginas
+        finally:
+            doc.close()
+    except Exception:
+        return True  # ante la duda, asumir que si tiene texto
+
+
+def _resolve_ai_backend(requested: str, sources_hint: list[Path] | None = None) -> str:
+    backend = (requested or "auto").lower()
+    if backend not in AI_BACKENDS:
+        raise ValueError(f"Backend invalido: {requested}. Elige uno de: {', '.join(AI_BACKENDS)}")
+    if backend == "auto":
+        # Si hay al menos un PDF escaneado, preferir Docling (necesita OCR)
+        scanned_hit = False
+        if sources_hint:
+            for source in sources_hint:
+                if source.is_file() and source.suffix.lower() == ".pdf" and not _pdf_has_text_layer(source):
+                    scanned_hit = True
+                    break
+        if scanned_hit and _docling_available():
+            return "docling"
+        if _pymupdf4llm_available():
+            return "pymupdf4llm"
+        if _docling_available():
+            return "docling"
+        if _marker_available():
+            return "marker"
+        raise RuntimeError(
+            "No hay motores de conversion IA instalados. Instala uno de:\n"
+            "  .venv/bin/python -m pip install pymupdf4llm   (ligero, MIT)\n"
+            "  .venv/bin/python -m pip install -r requirements-ai-docling.txt\n"
+            "  .venv/bin/python -m pip install -r requirements-ai-marker.txt"
+        )
+    if backend == "docling" and not _docling_available():
+        raise RuntimeError(
+            "Falta el paquete 'docling'. Instalalo con:\n"
+            "  .venv/bin/python -m pip install -r requirements-ai-docling.txt"
+        )
+    if backend == "marker" and not _marker_available():
+        raise RuntimeError(
+            "Falta el paquete 'marker' (licencia GPL-3). Instalalo con:\n"
+            "  .venv/bin/python -m pip install -r requirements-ai-marker.txt"
+        )
+    if backend == "pymupdf4llm" and not _pymupdf4llm_available():
+        raise RuntimeError(
+            "Falta el paquete 'pymupdf4llm'. Instalalo con:\n"
+            "  .venv/bin/python -m pip install pymupdf4llm"
+        )
+    return backend
+
+
+def _convert_with_pymupdf4llm(input_path: Path, formats: list[str], output_dir: Path | None = None) -> list[Path]:
+    import pymupdf4llm  # type: ignore
+
+    target_dir = (output_dir or input_path.parent)
+    target_dir.mkdir(parents=True, exist_ok=True)
+    stem = input_path.stem
+    written: list[Path] = []
+
+    if "md" in formats:
+        md_text = pymupdf4llm.to_markdown(str(input_path))
+        md_path = target_dir / f"{stem}.md"
+        md_path.write_text(md_text, encoding="utf-8")
+        written.append(md_path)
+    if "json" in formats:
+        import json as _json
+        # pymupdf4llm puede entregar metadata por pagina con page_chunks=True
+        chunks = pymupdf4llm.to_markdown(str(input_path), page_chunks=True)
+        json_path = target_dir / f"{stem}.json"
+        json_path.write_text(
+            _json.dumps(chunks, ensure_ascii=False, indent=2, default=str),
+            encoding="utf-8",
+        )
+        written.append(json_path)
+    return written
+
+
+def _convert_with_docling(
+    input_path: Path,
+    formats: list[str],
+    output_dir: Path | None = None,
+    ocr: str = "auto",
+    lang: str = "spa",
+) -> list[Path]:
+    from docling.document_converter import DocumentConverter  # type: ignore
+
+    # Decidir si activar OCR Tesseract (mejor calidad en PDFs escaneados)
+    use_ocr_tesseract = False
+    if ocr in ("on", "force", "true", "yes"):
+        use_ocr_tesseract = True
+    elif ocr == "auto" and input_path.suffix.lower() == ".pdf" and not _pdf_has_text_layer(input_path):
+        use_ocr_tesseract = True
+
+    if use_ocr_tesseract:
+        try:
+            from docling.datamodel.pipeline_options import PdfPipelineOptions, TesseractCliOcrOptions  # type: ignore
+            from docling.datamodel.base_models import InputFormat  # type: ignore
+            from docling.document_converter import PdfFormatOption  # type: ignore
+            lang_list = [item.strip() for item in re.split(r"[,;+\s]+", lang) if item.strip()] or ["spa"]
+            pipeline_options = PdfPipelineOptions(
+                do_ocr=True,
+                ocr_options=TesseractCliOcrOptions(lang=lang_list),
+            )
+            converter = DocumentConverter(
+                format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)}
+            )
+        except Exception as exc:
+            warn(f"No se pudo configurar Tesseract en Docling ({exc}). Usando OCR por defecto.")
+            converter = DocumentConverter()
+    else:
+        converter = DocumentConverter()
+
+    result = converter.convert(str(input_path))
+    document = result.document
+    target_dir = (output_dir or input_path.parent)
+    target_dir.mkdir(parents=True, exist_ok=True)
+    written: list[Path] = []
+    stem = input_path.stem
+    if "md" in formats:
+        md_path = target_dir / f"{stem}.md"
+        md_path.write_text(document.export_to_markdown(), encoding="utf-8")
+        written.append(md_path)
+    if "json" in formats:
+        import json as _json
+        json_path = target_dir / f"{stem}.json"
+        json_path.write_text(
+            _json.dumps(document.export_to_dict(), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        written.append(json_path)
+    return written
+
+
+def _convert_with_marker(
+    input_path: Path,
+    formats: list[str],
+    output_dir: Path | None = None,
+    use_llm: bool = False,
+) -> list[Path]:
+    from marker.converters.pdf import PdfConverter  # type: ignore
+    from marker.models import create_model_dict  # type: ignore
+    from marker.config.parser import ConfigParser as MarkerConfigParser  # type: ignore
+    from marker.output import text_from_rendered  # type: ignore
+
+    target_dir = (output_dir or input_path.parent)
+    target_dir.mkdir(parents=True, exist_ok=True)
+    stem = input_path.stem
+    written: list[Path] = []
+    artifact_dict = create_model_dict()
+
+    for fmt in formats:
+        cli_options = {
+            "output_format": "markdown" if fmt == "md" else "json",
+            "use_llm": use_llm,
+        }
+        config_parser = MarkerConfigParser(cli_options)
+        converter = PdfConverter(
+            config=config_parser.generate_config_dict(),
+            artifact_dict=artifact_dict,
+            processor_list=config_parser.get_processors(),
+            renderer=config_parser.get_renderer(),
+            llm_service=config_parser.get_llm_service() if use_llm else None,
+        )
+        rendered = converter(str(input_path))
+        text, ext, _images = text_from_rendered(rendered)
+        suffix = ".md" if fmt == "md" else ".json"
+        out = target_dir / f"{stem}{suffix}"
+        out.write_text(text, encoding="utf-8")
+        written.append(out)
+    return written
+
+
+def cmd_convert_ai(
+    sources: list[Path],
+    backend: str = "auto",
+    formats: str | list[str] | None = None,
+    extensions: str | list[str] | None = None,
+    recursive: bool = False,
+    use_llm: bool = False,
+    output_dir: Path | None = None,
+    ocr: str = "auto",
+    lang: str = "spa",
+) -> list[Path]:
+    selected_formats = _normalize_ai_formats(formats)
+    selected_extensions = _normalize_ai_extensions(extensions)
+    files = discover_to_txt_inputs(sources, selected_extensions, recursive=recursive)
+    resolved_backend = _resolve_ai_backend(backend, sources_hint=files)
+
+    extra = ""
+    if resolved_backend == "marker":
+        extra = "\n[red]Marker requiere licencia GPL-3 y descarga modelos en la primera ejecucion.[/red]"
+    elif resolved_backend == "docling":
+        extra = f"\nOCR: [yellow]{ocr}[/yellow]  Idioma: [yellow]{lang}[/yellow]"
+
+    console.print(Panel.fit(
+        f"Motor: [bold cyan]{resolved_backend}[/bold cyan]\n"
+        f"Formatos: [yellow]{', '.join(selected_formats)}[/yellow]\n"
+        f"Archivos: [green]{len(files)}[/green]"
+        + extra,
+        title="Conversion IA",
+        border_style="cyan",
+    ))
+
+    outputs: list[Path] = []
+    failures: list[tuple[Path, Exception]] = []
+    with Progress(SpinnerColumn(), TextColumn("{task.description}"), BarColumn(),
+                  TextColumn("{task.completed}/{task.total}"), TimeElapsedColumn(),
+                  console=console) as progress:
+        task = progress.add_task(f"Convirtiendo con {resolved_backend}", total=len(files))
+        for input_file in files:
+            try:
+                if resolved_backend == "docling":
+                    produced = _convert_with_docling(input_file, selected_formats, output_dir, ocr=ocr, lang=lang)
+                elif resolved_backend == "pymupdf4llm":
+                    produced = _convert_with_pymupdf4llm(input_file, selected_formats, output_dir)
+                else:
+                    produced = _convert_with_marker(input_file, selected_formats, output_dir, use_llm)
+                outputs.extend(produced)
+            except Exception as exc:
+                failures.append((input_file, exc))
+            progress.advance(task)
+
+    table = Table(title=f"Conversion IA ({resolved_backend})", box=box.ROUNDED, border_style="cyan")
+    table.add_column("Archivo", style="cyan")
+    table.add_column("Salidas", style="green")
+    by_source: dict[Path, list[Path]] = {}
+    for output in outputs:
+        # Group by stem inside same dir as fallback
+        by_source.setdefault(output.parent / output.stem, []).append(output)
+    for key, group in by_source.items():
+        names = ", ".join(item.name for item in group)
+        table.add_row(key.name, names)
+    console.print(table)
+
+    ok(f"Archivos convertidos: {len(outputs)} (origenes: {len(files) - len(failures)}/{len(files)})")
+    if failures:
+        for source, exc in failures:
+            warn(f"No se pudo convertir {source}: {type(exc).__name__}: {exc}")
+        raise RuntimeError(f"Fallaron {len(failures)} de {len(files)} conversiones IA")
+    return outputs
+
+
 def cmd_number(
     input_pdf: Path,
     output: Path,
@@ -1281,7 +1649,8 @@ MENU = [
     ("Editar y optimizar", "15", "watermark", "Agregar marca de agua de texto"),
     ("Convertir", "16", "pdf-images", "Convertir paginas de PDF a imagenes"),
     ("Convertir", "17", "images-pdf", "Crear PDF desde imagenes"),
-    ("Convertir", "23", "files-to-txt", "Convertir Word/PDF a TXT por archivo, lista o carpeta"),
+    ("Convertir", "23", "files-to-txt", "Convertir Word/PDF a TXT (basico, por archivo/lista/carpeta)"),
+    ("Conversion IA", "24", "convert-ai", "Convertir a MD/JSON con auto, pymupdf4llm, Docling o Marker"),
     ("Seguridad", "18", "protect", "Proteger PDF con contrasena"),
     ("Seguridad", "19", "metadata", "Editar metadatos del PDF"),
     ("Ayuda", "20", "info", "Ver informacion del PDF"),
@@ -1512,6 +1881,50 @@ def interactive() -> None:
                 ocr = Confirm.ask("Usar OCR para PDFs escaneados", default=False)
                 lang = Prompt.ask("Idioma OCR", default="spa") if ocr else "spa"
                 cmd_files_to_txt(sources, extensions=extensions, recursive=recursive, ocr=ocr, lang=lang)
+            elif choice == "24":
+                console.print(Panel.fit(
+                    "Conversion de alta calidad a Markdown / JSON.\n"
+                    "Preserva columnas, tablas y orden de lectura para agentes IA.\n"
+                    "[bold]pymupdf4llm[/bold] (MIT, ligero) - ideal para PDFs digitales.\n"
+                    "[bold]Docling[/bold] (MIT) + Tesseract - ideal para PDFs escaneados.\n"
+                    "[bold]Marker[/bold] (GPL-3) - maxima calidad en PDFs complejos.",
+                    title="Conversion IA (auto / pymupdf4llm / Docling / Marker)",
+                    border_style="cyan",
+                ))
+                mode = Prompt.ask("Origen", choices=["archivo", "lista", "carpeta"], default="archivo")
+                if mode == "archivo":
+                    sources = [ask_path("Archivo a convertir")]
+                elif mode == "lista":
+                    count = IntPrompt.ask("Cuantos archivos quieres convertir", default=1)
+                    sources = [ask_path(f"Archivo {index + 1}") for index in range(count)]
+                else:
+                    sources = [ask_path("Carpeta con documentos", is_dir=True)]
+                backends_state = _detect_backends()
+                # Mostrar sugerencia segun primer archivo
+                first_pdf = next((s for s in sources if s.is_file() and s.suffix.lower() == ".pdf"), None)
+                if first_pdf and not _pdf_has_text_layer(first_pdf):
+                    console.print("[yellow]Detectado PDF escaneado.[/yellow] Recomendado: [bold]auto[/bold] o [bold]docling[/bold] con OCR Tesseract.")
+                    default_backend = "auto" if backends_state["docling"] else "docling"
+                elif backends_state["pymupdf4llm"]:
+                    default_backend = "pymupdf4llm"
+                elif backends_state["docling"]:
+                    default_backend = "docling"
+                else:
+                    default_backend = "auto"
+                backend = Prompt.ask("Motor", choices=list(AI_BACKENDS), default=default_backend)
+                formats = Prompt.ask("Formatos de salida (md, json o md,json)", default="md,json")
+                recursive = Confirm.ask("Buscar tambien en subcarpetas", default=False) if mode == "carpeta" else False
+                ocr_mode = "auto"
+                lang_value = "spa"
+                if backend in ("auto", "docling"):
+                    ocr_mode = Prompt.ask("OCR (auto / on / off)", choices=["auto", "on", "off"], default="auto")
+                    if ocr_mode != "off":
+                        lang_value = Prompt.ask("Idioma OCR (spa, eng, spa+eng)", default="spa")
+                use_llm = False
+                if backend in ("marker",) and backends_state["marker"]:
+                    use_llm = Confirm.ask("Usar LLM auxiliar para Marker (requiere clave API configurada)", default=False)
+                cmd_convert_ai(sources, backend=backend, formats=formats, recursive=recursive,
+                               use_llm=use_llm, ocr=ocr_mode, lang=lang_value)
             elif choice == "18":
                 src = ask_path("PDF a proteger")
                 password = Prompt.ask("Contrasena para abrir", password=True)
@@ -1743,6 +2156,30 @@ def build_parser() -> argparse.ArgumentParser:
     files_txt.add_argument("--ocr", action="store_true", help="Usar OCR al convertir PDFs escaneados.")
     files_txt.add_argument("--lang", default="spa", help="Idioma OCR para PDFs escaneados.")
 
+    convert_ai = sub.add_parser(
+        "convert-ai",
+        aliases=["to-md", "ai-convert"],
+        help="Convertir documentos a Markdown/JSON con Docling (MIT) o Marker (GPL-3).",
+    )
+    convert_ai.add_argument("sources", nargs="+", type=Path, help="Archivos o carpetas de entrada.")
+    convert_ai.add_argument("--backend", choices=list(AI_BACKENDS), default="auto", help="Motor de conversion IA.")
+    convert_ai.add_argument("--formats", default="md,json", help="Formatos de salida (md, json o md,json).")
+    convert_ai.add_argument(
+        "--extensions",
+        default=None,
+        help="Extensiones a procesar al pasar carpetas. Por defecto: todas las soportadas.",
+    )
+    convert_ai.add_argument("--recursive", action="store_true", help="Buscar en subcarpetas.")
+    convert_ai.add_argument("--use-llm", action="store_true", help="Activar LLM auxiliar de Marker (requiere config).")
+    convert_ai.add_argument("--output-dir", type=Path, default=None, help="Carpeta de salida (por defecto, junto al original).")
+    convert_ai.add_argument(
+        "--ocr",
+        choices=["auto", "on", "off"],
+        default="auto",
+        help="OCR para Docling: auto (detecta PDFs escaneados), on (forzar Tesseract), off.",
+    )
+    convert_ai.add_argument("--lang", default="spa", help="Idioma OCR para Docling (ej: spa, eng, spa+eng).")
+
     watermark = sub.add_parser("watermark", help="Agregar marca de agua de texto.")
     watermark.add_argument("input", type=Path)
     watermark.add_argument("--text", required=True)
@@ -1839,6 +2276,18 @@ def main(argv: list[str] | None = None) -> int:
             cmd_images_to_pdf(args.inputs, args.output)
         elif args.cmd in ("files-to-txt", "word-to-txt"):
             cmd_files_to_txt(args.sources, args.extensions, args.recursive, args.ocr, args.lang)
+        elif args.cmd in ("convert-ai", "to-md", "ai-convert"):
+            cmd_convert_ai(
+                args.sources,
+                backend=args.backend,
+                formats=args.formats,
+                extensions=args.extensions,
+                recursive=args.recursive,
+                use_llm=args.use_llm,
+                output_dir=args.output_dir,
+                ocr=args.ocr,
+                lang=args.lang,
+            )
         elif args.cmd == "watermark":
             cmd_watermark(args.input, args.output, args.text, args.pages, args.font_size, args.opacity, args.rotate)
         elif args.cmd == "protect":

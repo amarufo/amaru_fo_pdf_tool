@@ -62,7 +62,47 @@ else
     printf 'OCR omitido. Puedes instalarlo despues con: ./.venv/bin/python -m pip install -r requirements-optional.txt\n'
 fi
 
-step "5. Preparando lanzador"
+step "5. Conversion IA MIT: pymupdf4llm + Docling - opcional"
+printf 'pymupdf4llm convierte PDFs digitales a Markdown rapido y sin modelos.\n'
+printf 'Docling convierte documentos escaneados a Markdown/JSON; con Tesseract mejora el OCR en espanol.\n'
+printf 'Docling puede descargar modelos en la primera ejecucion (cientos de MB).\n'
+read -r -p "Instalar conversion IA MIT ahora? [S/n] " INSTALL_DOCLING
+if [[ "${INSTALL_DOCLING,,}" != "n" ]]; then
+    "$VENV_PYTHON" -m pip install -r requirements-ai-docling.txt
+    if "$VENV_PYTHON" -c "import pymupdf4llm, docling" >/dev/null 2>&1; then
+        printf 'pymupdf4llm y Docling listos.\n'
+    else
+        printf 'No se pudo importar pymupdf4llm/docling tras la instalacion. Revisa logs de pip.\n' >&2
+    fi
+else
+    printf 'Conversion IA MIT omitida. Puedes instalarla despues con: ./.venv/bin/python -m pip install -r requirements-ai-docling.txt\n'
+fi
+
+step "6. Conversion IA con Marker (GPL-3) - opcional"
+printf 'Marker ofrece mas calidad en PDFs complejos PERO esta bajo licencia GPL-3.\n'
+printf 'Si distribuiras este proyecto, valida la compatibilidad de licencias.\n'
+read -r -p "Instalar Marker ahora? [s/N] " INSTALL_MARKER
+if [[ "${INSTALL_MARKER,,}" == "s" || "${INSTALL_MARKER,,}" == "y" ]]; then
+    "$VENV_PYTHON" -m pip install -r requirements-ai-marker.txt
+    if "$VENV_PYTHON" -c "import marker" >/dev/null 2>&1; then
+        printf 'Marker listo.\n'
+    else
+        printf 'No se pudo importar marker tras la instalacion. Revisa logs de pip.\n' >&2
+    fi
+else
+    printf 'Marker omitido. Puedes instalarlo despues con: ./.venv/bin/python -m pip install -r requirements-ai-marker.txt\n'
+fi
+
+step "7. Validando entorno"
+"$VENV_PYTHON" - <<'PY'
+import importlib.util as iu
+mods = [("fitz","pymupdf"), ("rich","rich"), ("pikepdf","pikepdf"), ("pytesseract","pytesseract"), ("PIL","pillow"), ("pymupdf4llm","pymupdf4llm"), ("docling","docling"), ("marker","marker-pdf")]
+for mod, pkg in mods:
+    estado = "OK" if iu.find_spec(mod) else "no instalado"
+    print(f"  {pkg:<15s} {estado}")
+PY
+
+step "8. Preparando lanzador"
 chmod +x run_pdftool.sh
 
 step "Instalacion terminada"

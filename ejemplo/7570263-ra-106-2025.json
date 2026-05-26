@@ -1,0 +1,2804 @@
+{
+  "schema_name": "DoclingDocument",
+  "version": "1.10.0",
+  "name": "7570263-ra-106-2025",
+  "origin": {
+    "mimetype": "application/pdf",
+    "binary_hash": 15144463109799215072,
+    "filename": "7570263-ra-106-2025.pdf"
+  },
+  "furniture": {
+    "self_ref": "#/furniture",
+    "children": [],
+    "content_layer": "furniture",
+    "name": "_root_",
+    "label": "unspecified"
+  },
+  "body": {
+    "self_ref": "#/body",
+    "children": [
+      {
+        "$ref": "#/pictures/0"
+      },
+      {
+        "$ref": "#/texts/4"
+      },
+      {
+        "$ref": "#/groups/0"
+      },
+      {
+        "$ref": "#/texts/6"
+      },
+      {
+        "$ref": "#/texts/7"
+      },
+      {
+        "$ref": "#/texts/8"
+      },
+      {
+        "$ref": "#/texts/9"
+      },
+      {
+        "$ref": "#/pictures/1"
+      },
+      {
+        "$ref": "#/pictures/2"
+      },
+      {
+        "$ref": "#/texts/17"
+      },
+      {
+        "$ref": "#/texts/18"
+      },
+      {
+        "$ref": "#/pictures/3"
+      },
+      {
+        "$ref": "#/pictures/4"
+      },
+      {
+        "$ref": "#/texts/23"
+      },
+      {
+        "$ref": "#/texts/24"
+      },
+      {
+        "$ref": "#/pictures/5"
+      },
+      {
+        "$ref": "#/texts/29"
+      },
+      {
+        "$ref": "#/texts/30"
+      },
+      {
+        "$ref": "#/texts/31"
+      },
+      {
+        "$ref": "#/groups/1"
+      },
+      {
+        "$ref": "#/texts/34"
+      },
+      {
+        "$ref": "#/texts/35"
+      },
+      {
+        "$ref": "#/texts/36"
+      },
+      {
+        "$ref": "#/pictures/6"
+      },
+      {
+        "$ref": "#/pictures/7"
+      },
+      {
+        "$ref": "#/pictures/8"
+      },
+      {
+        "$ref": "#/pictures/9"
+      },
+      {
+        "$ref": "#/pictures/10"
+      },
+      {
+        "$ref": "#/texts/40"
+      },
+      {
+        "$ref": "#/texts/41"
+      },
+      {
+        "$ref": "#/texts/42"
+      },
+      {
+        "$ref": "#/texts/43"
+      },
+      {
+        "$ref": "#/texts/44"
+      },
+      {
+        "$ref": "#/texts/45"
+      },
+      {
+        "$ref": "#/texts/46"
+      },
+      {
+        "$ref": "#/texts/47"
+      },
+      {
+        "$ref": "#/texts/48"
+      },
+      {
+        "$ref": "#/texts/49"
+      },
+      {
+        "$ref": "#/groups/2"
+      },
+      {
+        "$ref": "#/pictures/11"
+      },
+      {
+        "$ref": "#/groups/3"
+      },
+      {
+        "$ref": "#/pictures/12"
+      },
+      {
+        "$ref": "#/groups/4"
+      },
+      {
+        "$ref": "#/texts/74"
+      }
+    ],
+    "content_layer": "body",
+    "name": "_root_",
+    "label": "unspecified"
+  },
+  "groups": [
+    {
+      "self_ref": "#/groups/0",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/5"
+        }
+      ],
+      "content_layer": "body",
+      "name": "group",
+      "label": "key_value_area"
+    },
+    {
+      "self_ref": "#/groups/1",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/32"
+        },
+        {
+          "$ref": "#/texts/33"
+        }
+      ],
+      "content_layer": "body",
+      "name": "group",
+      "label": "key_value_area"
+    },
+    {
+      "self_ref": "#/groups/2",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/50"
+        },
+        {
+          "$ref": "#/texts/51"
+        },
+        {
+          "$ref": "#/texts/52"
+        },
+        {
+          "$ref": "#/texts/53"
+        },
+        {
+          "$ref": "#/texts/54"
+        },
+        {
+          "$ref": "#/texts/55"
+        },
+        {
+          "$ref": "#/texts/56"
+        },
+        {
+          "$ref": "#/texts/57"
+        },
+        {
+          "$ref": "#/texts/58"
+        },
+        {
+          "$ref": "#/texts/59"
+        }
+      ],
+      "content_layer": "body",
+      "name": "group",
+      "label": "key_value_area"
+    },
+    {
+      "self_ref": "#/groups/3",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/69"
+        }
+      ],
+      "content_layer": "body",
+      "name": "group",
+      "label": "key_value_area"
+    },
+    {
+      "self_ref": "#/groups/4",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/71"
+        },
+        {
+          "$ref": "#/texts/72"
+        },
+        {
+          "$ref": "#/texts/73"
+        }
+      ],
+      "content_layer": "body",
+      "name": "group",
+      "label": "key_value_area"
+    }
+  ],
+  "texts": [
+    {
+      "self_ref": "#/texts/0",
+      "parent": {
+        "$ref": "#/pictures/0"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 152.33333333333334,
+            "t": 795.3333333333334,
+            "r": 175.0,
+            "b": 785.6666666666666,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "Wa",
+      "text": "Wa",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/1",
+      "parent": {
+        "$ref": "#/pictures/0"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 72.33333333333333,
+            "t": 769.6666666666666,
+            "r": 82.66666666666667,
+            "b": 766.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "e",
+      "text": "e"
+    },
+    {
+      "self_ref": "#/texts/2",
+      "parent": {
+        "$ref": "#/pictures/0"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 115.0,
+            "t": 779.6666666666666,
+            "r": 528.6666666666666,
+            "b": 749.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            67
+          ]
+        }
+      ],
+      "orig": "Prinia mas Catia del Perú, Cuna dela Revolución Latino Cnoicada 002",
+      "text": "Prinia mas Catia del Perú, Cuna dela Revolución Latino Cnoicada 002"
+    },
+    {
+      "self_ref": "#/texts/3",
+      "parent": {
+        "$ref": "#/pictures/0"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 539.6666666666666,
+            "t": 799.6666666666666,
+            "r": 563.3333333333334,
+            "b": 769.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "y",
+      "text": "y"
+    },
+    {
+      "self_ref": "#/texts/4",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 175.33333333333334,
+            "t": 723.3333333333334,
+            "r": 469.6666666666667,
+            "b": 710.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            41
+          ]
+        }
+      ],
+      "orig": "RESOLUCIÓN DE ALCALDÍA N*106 -2025-A-MDT.",
+      "text": "RESOLUCIÓN DE ALCALDÍA N*106 -2025-A-MDT.",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/5",
+      "parent": {
+        "$ref": "#/groups/0"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 463.0,
+            "t": 687.0,
+            "r": 552.6666666666666,
+            "b": 680.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            24
+          ]
+        }
+      ],
+      "orig": "Tinta, 22 DE ABRIL -2025",
+      "text": "Tinta, 22 DE ABRIL -2025"
+    },
+    {
+      "self_ref": "#/texts/6",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 92.33333333333333,
+            "t": 669.0,
+            "r": 552.0,
+            "b": 659.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            88
+          ]
+        }
+      ],
+      "orig": "EL ALCALDE DE LA MUNICIPALIDAD DISTRITAL DE TINTA -PROVINCIA DE CANCHIS -DEPARTAMENTO DE",
+      "text": "EL ALCALDE DE LA MUNICIPALIDAD DISTRITAL DE TINTA -PROVINCIA DE CANCHIS -DEPARTAMENTO DE"
+    },
+    {
+      "self_ref": "#/texts/7",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 68.33333333333333,
+            "t": 638.6666666666666,
+            "r": 559.3333333333334,
+            "b": 607.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            257
+          ]
+        }
+      ],
+      "orig": "VISTO: la carta N*\" 02 — 2025 -MDT -—-SGDSMA -VCG, de fecha 10 de marzo del 2025, Informe N* 109 — MDT/SGDSMA/YLE -2025 de fecha 18 de marzo — 2025, Informe N%025 — 2025 — UL -MDT de fecha 16 de abril -2025, cla Opinión Legal N* 0103 -2025 — ALE — MDT—C. Y;",
+      "text": "VISTO: la carta N*\" 02 — 2025 -MDT -—-SGDSMA -VCG, de fecha 10 de marzo del 2025, Informe N* 109 — MDT/SGDSMA/YLE -2025 de fecha 18 de marzo — 2025, Informe N%025 — 2025 — UL -MDT de fecha 16 de abril -2025, cla Opinión Legal N* 0103 -2025 — ALE — MDT—C. Y;"
+    },
+    {
+      "self_ref": "#/texts/8",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 84.66666666666667,
+            "t": 600.0,
+            "r": 158.33333333333334,
+            "b": 589.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            13
+          ]
+        }
+      ],
+      "orig": "CONSIDERANDO:",
+      "text": "CONSIDERANDO:",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/9",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 84.33333333333333,
+            "t": 576.0,
+            "r": 559.3333333333334,
+            "b": 505.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            806
+          ]
+        }
+      ],
+      "orig": "Que, de conformidad con lo establecido por el Artículo 194? de la Constitución Política del Perú, modificada por Ley N*30305, señala que \"Las municipalidades provinciales y distritales son Órganos de Gobierno Local. Tienen autonomía política, económica y administrativa en los asuntos de su competencia (...)\"; lo que debe ser concordado con lo dispuesto por el Artículo Il del Título Preliminar de la Ley N*27972, Ley Orgánica de Municipalidades que especifica que: \"Los gobiernos locales gozan de autonomía política, económica y administrativa en los asuntos de su competencia\". En ese sentido la autonomía que la Constitución Política del Perú establece para las municipalidades radica en la facultad de ejercer actos de gobierno administrativo y de administración con sujeción al ordenamiento jurídico.",
+      "text": "Que, de conformidad con lo establecido por el Artículo 194? de la Constitución Política del Perú, modificada por Ley N*30305, señala que \"Las municipalidades provinciales y distritales son Órganos de Gobierno Local. Tienen autonomía política, económica y administrativa en los asuntos de su competencia (...)\"; lo que debe ser concordado con lo dispuesto por el Artículo Il del Título Preliminar de la Ley N*27972, Ley Orgánica de Municipalidades que especifica que: \"Los gobiernos locales gozan de autonomía política, económica y administrativa en los asuntos de su competencia\". En ese sentido la autonomía que la Constitución Política del Perú establece para las municipalidades radica en la facultad de ejercer actos de gobierno administrativo y de administración con sujeción al ordenamiento jurídico."
+    },
+    {
+      "self_ref": "#/texts/10",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 34.333333333333336,
+            "t": 625.3333333333334,
+            "r": 41.333333333333336,
+            "b": 619.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "Ss",
+      "text": "Ss"
+    },
+    {
+      "self_ref": "#/texts/11",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 44.0,
+            "t": 629.6666666666666,
+            "r": 71.33333333333333,
+            "b": 617.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "orig": "STA",
+      "text": "STA"
+    },
+    {
+      "self_ref": "#/texts/12",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 76.66666666666667,
+            "t": 599.3333333333334,
+            "r": 82.33333333333333,
+            "b": 589.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "+",
+      "text": "+"
+    },
+    {
+      "self_ref": "#/texts/13",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 35.0,
+            "t": 575.3333333333333,
+            "r": 55.0,
+            "b": 565.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "orig": "Wes",
+      "text": "Wes"
+    },
+    {
+      "self_ref": "#/texts/14",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 38.666666666666664,
+            "t": 566.3333333333333,
+            "r": 69.33333333333333,
+            "b": 562.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            4
+          ]
+        }
+      ],
+      "orig": "===\"",
+      "text": "===\""
+    },
+    {
+      "self_ref": "#/texts/15",
+      "parent": {
+        "$ref": "#/pictures/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 25.333333333333332,
+            "t": 550.3333333333333,
+            "r": 45.333333333333336,
+            "b": 533.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "a)",
+      "text": "a)"
+    },
+    {
+      "self_ref": "#/texts/16",
+      "parent": {
+        "$ref": "#/pictures/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 29.333333333333332,
+            "t": 532.3333333333333,
+            "r": 37.333333333333336,
+            "b": 530.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "e",
+      "text": "e"
+    },
+    {
+      "self_ref": "#/texts/17",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 75.0,
+            "t": 497.3333333333333,
+            "r": 559.3333333333334,
+            "b": 427.6666666666667,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            735
+          ]
+        }
+      ],
+      "orig": "Que, el artículo 161\" del Reglamento de la Ley de Contrataciones del Estado sobre las Penalidades \"61.1. El contrato establece las penalidades aplicables al contratista ante el incumplimiento injustificado de sus obligaciones contractuales a partir de la información brindada por el área usuaria, las mismas que son objetivas, razonables y congruentes con el objeto de la convocatoria. 161.2. La Entidad prevé en los documentos del procedimiento de selección la aplicación de la penalidad por mora; asimismo, puede prever otras penalidades. Estos dos (2) tipos de penalidades pueden alcanzar cada una un monto máximo equivalente al diez por ciento (10%) del monto del contrato vigente, o de ser el caso, del [tem que debió ejecutarse\".",
+      "text": "Que, el artículo 161\" del Reglamento de la Ley de Contrataciones del Estado sobre las Penalidades \"61.1. El contrato establece las penalidades aplicables al contratista ante el incumplimiento injustificado de sus obligaciones contractuales a partir de la información brindada por el área usuaria, las mismas que son objetivas, razonables y congruentes con el objeto de la convocatoria. 161.2. La Entidad prevé en los documentos del procedimiento de selección la aplicación de la penalidad por mora; asimismo, puede prever otras penalidades. Estos dos (2) tipos de penalidades pueden alcanzar cada una un monto máximo equivalente al diez por ciento (10%) del monto del contrato vigente, o de ser el caso, del [tem que debió ejecutarse\"."
+    },
+    {
+      "self_ref": "#/texts/18",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 63.0,
+            "t": 418.6666666666667,
+            "r": 559.6666666666666,
+            "b": 369.6666666666667,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            507
+          ]
+        }
+      ],
+      "orig": "/ Que, el artículo 163* Otras penalidades \"163.1. Los documentos del procedimiento de selección pueden establecer penalidades distintas a la mencionada en el artículo 162, siempre y cuando sean objetivas, razonables, congruentes y proporcionales con el objeto de la contratación. Para estos efectos, incluyen los supuestos de aplicación de penalidad, distintas al retraso o mora, la forma de cálculo de la penalidad para cada supuesto y el procedimiento mediante el cual se verifica el supuesto a penalizar\"",
+      "text": "/ Que, el artículo 163* Otras penalidades \"163.1. Los documentos del procedimiento de selección pueden establecer penalidades distintas a la mencionada en el artículo 162, siempre y cuando sean objetivas, razonables, congruentes y proporcionales con el objeto de la contratación. Para estos efectos, incluyen los supuestos de aplicación de penalidad, distintas al retraso o mora, la forma de cálculo de la penalidad para cada supuesto y el procedimiento mediante el cual se verifica el supuesto a penalizar\""
+    },
+    {
+      "self_ref": "#/texts/19",
+      "parent": {
+        "$ref": "#/pictures/3"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 60.333333333333336,
+            "t": 458.0,
+            "r": 71.0,
+            "b": 442.6666666666667,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "22",
+      "text": "22"
+    },
+    {
+      "self_ref": "#/texts/20",
+      "parent": {
+        "$ref": "#/pictures/3"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 70.33333333333333,
+            "t": 445.3333333333333,
+            "r": 78.66666666666667,
+            "b": 436.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "O",
+      "text": "O"
+    },
+    {
+      "self_ref": "#/texts/21",
+      "parent": {
+        "$ref": "#/pictures/3"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 56.333333333333336,
+            "t": 412.6666666666667,
+            "r": 81.0,
+            "b": 392.6666666666667,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "orig": "LAY",
+      "text": "LAY"
+    },
+    {
+      "self_ref": "#/texts/22",
+      "parent": {
+        "$ref": "#/pictures/4"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 26.333333333333332,
+            "t": 321.33333333333337,
+            "r": 45.666666666666664,
+            "b": 305.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "orig": "or)",
+      "text": "or)"
+    },
+    {
+      "self_ref": "#/texts/23",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 83.33333333333333,
+            "t": 360.3333333333333,
+            "r": 552.3333333333334,
+            "b": 296.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            635
+          ]
+        }
+      ],
+      "orig": "Que, mediante el responsable del área de Desarrollo Social, como área usuaria y conocedora de la realidad de población, y en vista que se encuentra en mayor contacto con los beneficiarios del vaso de leche y ser el área que ha realizado las especificaciones técnicas, teniendo conocimiento de la cantidad de productos solicitados, como del presupuesto estipulado para la presente proceso, evalué las alternativas propuestas, y emita un informe técnico de acuerdo lo establece los artículos 183\" y 184* del TUO de la Ley 27444, Ley del Procedimiento Administrativo General aprobado por Decreto Supremo 004-2019-JUS y sus modificatorias.",
+      "text": "Que, mediante el responsable del área de Desarrollo Social, como área usuaria y conocedora de la realidad de población, y en vista que se encuentra en mayor contacto con los beneficiarios del vaso de leche y ser el área que ha realizado las especificaciones técnicas, teniendo conocimiento de la cantidad de productos solicitados, como del presupuesto estipulado para la presente proceso, evalué las alternativas propuestas, y emita un informe técnico de acuerdo lo establece los artículos 183\" y 184* del TUO de la Ley 27444, Ley del Procedimiento Administrativo General aprobado por Decreto Supremo 004-2019-JUS y sus modificatorias."
+    },
+    {
+      "self_ref": "#/texts/24",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 75.0,
+            "t": 287.0,
+            "r": 552.0,
+            "b": 225.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            598
+          ]
+        }
+      ],
+      "orig": "Que, La unidad de Logística — Abastecimiento y Control Patrimonial como área especialista en las contrataciones del estado y área técnica, y conocedora del tipo de proceso de selección, el monto adjudicado, la orden de compra o contrato, deben remitir un informe claro y preciso, con conclusiones y recomendaciones expresas y claras, evalué las ¡/ alternativas propuestas, y emita un informe técnico de viabilidad de acuerdo lo establece los artículos 183\" y 184\" del TUO \"de la Ley 27444, Ley del Procedimiento Administrativo General aprobado por Decreto Supremo 004-2019-JUS y sus modificatorias.",
+      "text": "Que, La unidad de Logística — Abastecimiento y Control Patrimonial como área especialista en las contrataciones del estado y área técnica, y conocedora del tipo de proceso de selección, el monto adjudicado, la orden de compra o contrato, deben remitir un informe claro y preciso, con conclusiones y recomendaciones expresas y claras, evalué las ¡/ alternativas propuestas, y emita un informe técnico de viabilidad de acuerdo lo establece los artículos 183\" y 184\" del TUO \"de la Ley 27444, Ley del Procedimiento Administrativo General aprobado por Decreto Supremo 004-2019-JUS y sus modificatorias."
+    },
+    {
+      "self_ref": "#/texts/25",
+      "parent": {
+        "$ref": "#/pictures/5"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 45.333333333333336,
+            "t": 285.66666666666663,
+            "r": 72.66666666666667,
+            "b": 276.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "orig": "DOS",
+      "text": "DOS"
+    },
+    {
+      "self_ref": "#/texts/26",
+      "parent": {
+        "$ref": "#/pictures/5"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 61.0,
+            "t": 281.66666666666663,
+            "r": 77.66666666666667,
+            "b": 266.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "SA",
+      "text": "SA"
+    },
+    {
+      "self_ref": "#/texts/27",
+      "parent": {
+        "$ref": "#/pictures/5"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 68.33333333333333,
+            "t": 267.0,
+            "r": 80.33333333333333,
+            "b": 250.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": ">)",
+      "text": ">)"
+    },
+    {
+      "self_ref": "#/texts/28",
+      "parent": {
+        "$ref": "#/pictures/5"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 65.0,
+            "t": 257.66666666666663,
+            "r": 69.0,
+            "b": 245.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "/,",
+      "text": "/,"
+    },
+    {
+      "self_ref": "#/texts/29",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 83.33333333333333,
+            "t": 214.0,
+            "r": 558.0,
+            "b": 164.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            540
+          ]
+        }
+      ],
+      "orig": "Que, mediante la carta N*02 de fecha 10-03-28, la proveedora HANCCO ARONE KATIA MILAGROS, presenta sus actividades del 01 al 28 de febrero del 2025. Con evidente mora, que es materia de consulta y a través de la orden de servicio N*0136-2025, la unidad de Logística-Abastecimiento, en fecha 31 de enero del 2025, notifico dicha orden de servicio y la servidora presto por 28 días calendarios, sus servicios, cumpliendo la contratación de servicio de responsable de la unidad de programa vaso de leche de la Municipalidad Distrital de Tinta.",
+      "text": "Que, mediante la carta N*02 de fecha 10-03-28, la proveedora HANCCO ARONE KATIA MILAGROS, presenta sus actividades del 01 al 28 de febrero del 2025. Con evidente mora, que es materia de consulta y a través de la orden de servicio N*0136-2025, la unidad de Logística-Abastecimiento, en fecha 31 de enero del 2025, notifico dicha orden de servicio y la servidora presto por 28 días calendarios, sus servicios, cumpliendo la contratación de servicio de responsable de la unidad de programa vaso de leche de la Municipalidad Distrital de Tinta."
+    },
+    {
+      "self_ref": "#/texts/30",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 82.66666666666667,
+            "t": 156.0,
+            "r": 558.3333333333334,
+            "b": 80.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            786
+          ]
+        }
+      ],
+      "orig": "Que, con Informe N*025-2025-UL-MDT, la unidad de Logística— Abastecimiento y Control Patrimonial informa sobre la aplicación de penalidad a HANCCO ARONE KATIA MILAGROS con quien la Municipalidad Distrital de Tinta suscribió la orden de servicio N* 0136-2025, para el servicio como responsable de programa de vaso de leche, aunado a ello la unidad de logística-abastecimiento y control patrimonial como una unidad especializada, no realiza un análisis de caso ni conclusiones apropiadas conforme lo establece los artículos 183\" y 184\" del TUO de la Ley 27444, Ley del Procedimiento Administrativo General aprobado por Decreto Supremo 004-2019-JUS y sus modificatorias, al no precisar con claridad y precisión cuál es su duda legal, y sobre los requisitos para la presentación de informe.",
+      "text": "Que, con Informe N*025-2025-UL-MDT, la unidad de Logística— Abastecimiento y Control Patrimonial informa sobre la aplicación de penalidad a HANCCO ARONE KATIA MILAGROS con quien la Municipalidad Distrital de Tinta suscribió la orden de servicio N* 0136-2025, para el servicio como responsable de programa de vaso de leche, aunado a ello la unidad de logística-abastecimiento y control patrimonial como una unidad especializada, no realiza un análisis de caso ni conclusiones apropiadas conforme lo establece los artículos 183\" y 184\" del TUO de la Ley 27444, Ley del Procedimiento Administrativo General aprobado por Decreto Supremo 004-2019-JUS y sus modificatorias, al no precisar con claridad y precisión cuál es su duda legal, y sobre los requisitos para la presentación de informe."
+    },
+    {
+      "self_ref": "#/texts/31",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 37.666666666666664,
+            "t": 64.66666666666663,
+            "r": 558.6666666666666,
+            "b": 54.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            62
+          ]
+        }
+      ],
+      "orig": "PALACIO MUNICIPAL -PLAZA DE ARMAS N* 114 TINTA -CANCHIS -CUSCO",
+      "text": "PALACIO MUNICIPAL -PLAZA DE ARMAS N* 114 TINTA -CANCHIS -CUSCO"
+    },
+    {
+      "self_ref": "#/texts/32",
+      "parent": {
+        "$ref": "#/groups/1"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 48.333333333333336,
+            "t": 48.33333333333337,
+            "r": 75.33333333333333,
+            "b": 39.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            5
+          ]
+        }
+      ],
+      "orig": "Sitio",
+      "text": "Sitio"
+    },
+    {
+      "self_ref": "#/texts/33",
+      "parent": {
+        "$ref": "#/groups/1"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 79.33333333333333,
+            "t": 49.33333333333337,
+            "r": 548.3333333333334,
+            "b": 20.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            129
+          ]
+        }
+      ],
+      "orig": "Web: www.munitinta.gob.pe - Correo Electrónico: munitintaQmunitinta.gob.pe Mesa de Partes Virtual - mesadepartesQmunitinta.gob.pe",
+      "text": "Web: www.munitinta.gob.pe - Correo Electrónico: munitintaQmunitinta.gob.pe Mesa de Partes Virtual - mesadepartesQmunitinta.gob.pe"
+    },
+    {
+      "self_ref": "#/texts/34",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 85.33333333333333,
+            "t": 816.6666666666666,
+            "r": 433.6666666666667,
+            "b": 788.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            34
+          ]
+        }
+      ],
+      "orig": "MUNICIPALIDAD DISTRUFAL DE A a e a",
+      "text": "MUNICIPALIDAD DISTRUFAL DE A a e a",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/35",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 112.66666666666667,
+            "t": 778.0,
+            "r": 392.6666666666667,
+            "b": 760.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            15
+          ]
+        }
+      ],
+      "orig": "\"Pin Resolución",
+      "text": "\"Pin Resolución",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/36",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 169.33333333333334,
+            "t": 835.6666666666666,
+            "r": 507.6666666666667,
+            "b": 751.6666666666666,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            62
+          ]
+        }
+      ],
+      "orig": "INTA Vo ul ina mas Codegua del Parás Cuna de la Lebna Cercano\"",
+      "text": "INTA Vo ul ina mas Codegua del Parás Cuna de la Lebna Cercano\"",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/37",
+      "parent": {
+        "$ref": "#/pictures/7"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 74.66666666666667,
+            "t": 646.3333333333334,
+            "r": 75.0,
+            "b": 645.3333333333334,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "y",
+      "text": "y"
+    },
+    {
+      "self_ref": "#/texts/38",
+      "parent": {
+        "$ref": "#/pictures/7"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 75.0,
+            "t": 626.3333333333334,
+            "r": 75.33333333333333,
+            "b": 625.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "J)",
+      "text": "J)"
+    },
+    {
+      "self_ref": "#/texts/39",
+      "parent": {
+        "$ref": "#/pictures/9"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 75.33333333333333,
+            "t": 468.3333333333333,
+            "r": 76.0,
+            "b": 467.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": ";",
+      "text": ";"
+    },
+    {
+      "self_ref": "#/texts/40",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 82.66666666666667,
+            "t": 720.0,
+            "r": 558.6666666666666,
+            "b": 623.6666666666666,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1011
+          ]
+        }
+      ],
+      "orig": "Que, a través de la orden de servicio N*0136-2025, la unidad de Logística-Abastecimiento, a la fecha no se ha pagado; por causa del retraso de 10 (días calendarios); de informe de las actividades de fecha veintiséis (10) de marzo del 2025, estableciéndose que la fecha límite para la entrega del informe mensual es el día viernes 28 de febrero del 2025, esto dentro del plazo establecido en la Orden de servicio; N*0136-2025, para la contratación de servicio de un responsable de la unidad del programa vaso de leche, de conformidad al numeral 6.5. De la directiva N*001-2024-MDT/C \"contratación de bienes, servicios y/o consultorías, por montos iguales o menores a ocho (8) unidades impositivas tributarias (UIT)\" formalizado en fecha 31 de enero del 2025, en mérito la; orden de servicio N*0136-2025, para el servicio como responsable de programa de vaso de leche entre la Municipalidad adjudicada a la persona de HANCCO ARONE KATIA MILAGROS, por el monto de S/. 178.60 ciento setenta y ocho con 00/100 soles.",
+      "text": "Que, a través de la orden de servicio N*0136-2025, la unidad de Logística-Abastecimiento, a la fecha no se ha pagado; por causa del retraso de 10 (días calendarios); de informe de las actividades de fecha veintiséis (10) de marzo del 2025, estableciéndose que la fecha límite para la entrega del informe mensual es el día viernes 28 de febrero del 2025, esto dentro del plazo establecido en la Orden de servicio; N*0136-2025, para la contratación de servicio de un responsable de la unidad del programa vaso de leche, de conformidad al numeral 6.5. De la directiva N*001-2024-MDT/C \"contratación de bienes, servicios y/o consultorías, por montos iguales o menores a ocho (8) unidades impositivas tributarias (UIT)\" formalizado en fecha 31 de enero del 2025, en mérito la; orden de servicio N*0136-2025, para el servicio como responsable de programa de vaso de leche entre la Municipalidad adjudicada a la persona de HANCCO ARONE KATIA MILAGROS, por el monto de S/. 178.60 ciento setenta y ocho con 00/100 soles."
+    },
+    {
+      "self_ref": "#/texts/41",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 83.0,
+            "t": 614.0,
+            "r": 551.0,
+            "b": 539.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            777
+          ]
+        }
+      ],
+      "orig": "Que mediante la Opinión Legal N* 01003 -2025 — ALWE — MDT — C; opina PROCEDENTE la Aplicación de la Penalidad; puesto de manifiesto mediante; informe N*025-2025-UL-MDT de fecha 16 de abril del 2025; emitido por el Ing. Dante Salas Vizcarra; responsable de la Oficina de Logística de la Municipalidad Distrital de Tinta; solicitando la Aplicación de Penalidad contra HANCCO ARONE KATIA MILAGROS como responsable de programa de vaso de leche, aunado a ello la unidad de logística-abastecimiento sobre retraso injustificado en la mora de 10 días de retrasó corresponde la aplicación de S/. 178.60 son ciento setenta y ocho con 60/100 soles, ya que con fecha 10 de marzo de 2025, mediante carta N*002-2025-MDT-SGDSMA-VCG, presenta actividades realizadas del mes de febrero de 2025.",
+      "text": "Que mediante la Opinión Legal N* 01003 -2025 — ALWE — MDT — C; opina PROCEDENTE la Aplicación de la Penalidad; puesto de manifiesto mediante; informe N*025-2025-UL-MDT de fecha 16 de abril del 2025; emitido por el Ing. Dante Salas Vizcarra; responsable de la Oficina de Logística de la Municipalidad Distrital de Tinta; solicitando la Aplicación de Penalidad contra HANCCO ARONE KATIA MILAGROS como responsable de programa de vaso de leche, aunado a ello la unidad de logística-abastecimiento sobre retraso injustificado en la mora de 10 días de retrasó corresponde la aplicación de S/. 178.60 son ciento setenta y ocho con 60/100 soles, ya que con fecha 10 de marzo de 2025, mediante carta N*002-2025-MDT-SGDSMA-VCG, presenta actividades realizadas del mes de febrero de 2025."
+    },
+    {
+      "self_ref": "#/texts/42",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 76.66666666666667,
+            "t": 530.3333333333333,
+            "r": 550.0,
+            "b": 510.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            162
+          ]
+        }
+      ],
+      "orig": "Y mediante el proveído de gerencia municipal N* 1247 de fecha 21 de abril — 2024, en donde deriva a Secretaria General, . para su acto Resolutivo correspondiente.",
+      "text": "Y mediante el proveído de gerencia municipal N* 1247 de fecha 21 de abril — 2024, en donde deriva a Secretaria General, . para su acto Resolutivo correspondiente."
+    },
+    {
+      "self_ref": "#/texts/43",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 83.33333333333333,
+            "t": 499.6666666666667,
+            "r": 551.6666666666666,
+            "b": 480.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            156
+          ]
+        }
+      ],
+      "orig": "Que, estando a las consideraciones expuestas y en uso de las atribuciones conferidas en el Artículo 20\" de la Ley N* 27972 -Ley Orgánica de Municipalidades;",
+      "text": "Que, estando a las consideraciones expuestas y en uso de las atribuciones conferidas en el Artículo 20\" de la Ley N* 27972 -Ley Orgánica de Municipalidades;"
+    },
+    {
+      "self_ref": "#/texts/44",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 83.33333333333333,
+            "t": 470.3333333333333,
+            "r": 146.33333333333334,
+            "b": 463.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            12
+          ]
+        }
+      ],
+      "orig": "SE RESUELVE:",
+      "text": "SE RESUELVE:",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/45",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 82.66666666666667,
+            "t": 453.0,
+            "r": 551.3333333333334,
+            "b": 410.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            377
+          ]
+        }
+      ],
+      "orig": "ARTÍCULO PRIMERO. -APROVAR; la Aplicación de la Penalidad contra HANCCO ARONE KATIA MILAGROS como responsable de programa de vaso de leche, sobre retraso injustificado en la mora de 10 días de retrasó corresponde la aplicación de S/. 178.60 son ciento setenta y ocho con 60/100 soles, presenta actividades realizadas del mes de febrero de 2025, por los considerandos expuestos.",
+      "text": "ARTÍCULO PRIMERO. -APROVAR; la Aplicación de la Penalidad contra HANCCO ARONE KATIA MILAGROS como responsable de programa de vaso de leche, sobre retraso injustificado en la mora de 10 días de retrasó corresponde la aplicación de S/. 178.60 son ciento setenta y ocho con 60/100 soles, presenta actividades realizadas del mes de febrero de 2025, por los considerandos expuestos."
+    },
+    {
+      "self_ref": "#/texts/46",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 82.66666666666667,
+            "t": 400.0,
+            "r": 551.3333333333334,
+            "b": 369.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            311
+          ]
+        }
+      ],
+      "orig": "ARTICULO SEGUNDO. -ENCARGAR, a la Unidad de Tesorería, realice la aplicación de la penalidad con el descuento respectivo, y a la Unidad de Abastecimiento y Patrimonio, comunique a la contratada la penalidad aplicada en virtud de los Artículos 162 y 163 y 194 y siguientes de la Ley de Contrataciones del Estado.",
+      "text": "ARTICULO SEGUNDO. -ENCARGAR, a la Unidad de Tesorería, realice la aplicación de la penalidad con el descuento respectivo, y a la Unidad de Abastecimiento y Patrimonio, comunique a la contratada la penalidad aplicada en virtud de los Artículos 162 y 163 y 194 y siguientes de la Ley de Contrataciones del Estado."
+    },
+    {
+      "self_ref": "#/texts/47",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 83.33333333333333,
+            "t": 359.3333333333333,
+            "r": 551.3333333333334,
+            "b": 339.3333333333333,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            181
+          ]
+        }
+      ],
+      "orig": "ARTICULO TERCERO. -NOTIFICAR, la presente resolución a la Gerencia Municipal, Unidad de Tesorería y demás áreas administrativas competentes para su conocimiento y fines pertinentes.",
+      "text": "ARTICULO TERCERO. -NOTIFICAR, la presente resolución a la Gerencia Municipal, Unidad de Tesorería y demás áreas administrativas competentes para su conocimiento y fines pertinentes."
+    },
+    {
+      "self_ref": "#/texts/48",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 83.33333333333333,
+            "t": 329.33333333333337,
+            "r": 551.0,
+            "b": 308.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            184
+          ]
+        }
+      ],
+      "orig": "ARTICULO CUARTO. -PUBLICAR la presente resolución en el portal web institucional de nuestra municipalidad, de conformidad con la Ley de Transparencia y Acceso a la Información Pública.",
+      "text": "ARTICULO CUARTO. -PUBLICAR la presente resolución en el portal web institucional de nuestra municipalidad, de conformidad con la Ley de Transparencia y Acceso a la Información Pública."
+    },
+    {
+      "self_ref": "#/texts/49",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "section_header",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 185.33333333333334,
+            "t": 281.0,
+            "r": 373.6666666666667,
+            "b": 272.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            35
+          ]
+        }
+      ],
+      "orig": "REGISTRESE, COMUNIQUESE Y ARCHIVESE",
+      "text": "REGISTRESE, COMUNIQUESE Y ARCHIVESE",
+      "level": 1
+    },
+    {
+      "self_ref": "#/texts/50",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 83.0,
+            "t": 262.66666666666663,
+            "r": 111.0,
+            "b": 233.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            42
+          ]
+        }
+      ],
+      "orig": "cc. 6.M TESORERIA y LOGISTICA. S.G.D.SYMA.",
+      "text": "cc. 6.M TESORERIA y LOGISTICA. S.G.D.SYMA."
+    },
+    {
+      "self_ref": "#/texts/51",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 220.0,
+            "t": 242.33333333333337,
+            "r": 235.66666666666666,
+            "b": 239.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "orig": "¿et",
+      "text": "¿et"
+    },
+    {
+      "self_ref": "#/texts/52",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 239.0,
+            "t": 244.0,
+            "r": 276.0,
+            "b": 239.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            13
+          ]
+        }
+      ],
+      "orig": "MUNICIPALIDAD",
+      "text": "MUNICIPALIDAD"
+    },
+    {
+      "self_ref": "#/texts/53",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 278.0,
+            "t": 244.33333333333337,
+            "r": 301.6666666666667,
+            "b": 240.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            9
+          ]
+        }
+      ],
+      "orig": "DISTRIJAL",
+      "text": "DISTRIJAL"
+    },
+    {
+      "self_ref": "#/texts/54",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 303.6666666666667,
+            "t": 247.33333333333337,
+            "r": 309.3333333333333,
+            "b": 236.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "DE",
+      "text": "DE"
+    },
+    {
+      "self_ref": "#/texts/55",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 311.3333333333333,
+            "t": 245.0,
+            "r": 324.3333333333333,
+            "b": 241.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            5
+          ]
+        }
+      ],
+      "orig": "TINTA",
+      "text": "TINTA"
+    },
+    {
+      "self_ref": "#/texts/56",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 218.33333333333334,
+            "t": 239.0,
+            "r": 220.0,
+            "b": 237.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "%",
+      "text": "%"
+    },
+    {
+      "self_ref": "#/texts/57",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 263.6666666666667,
+            "t": 239.0,
+            "r": 280.0,
+            "b": 235.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            6
+          ]
+        }
+      ],
+      "orig": "ANCHIS",
+      "text": "ANCHIS"
+    },
+    {
+      "self_ref": "#/texts/58",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 282.3333333333333,
+            "t": 237.66666666666663,
+            "r": 283.3333333333333,
+            "b": 237.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "-",
+      "text": "-"
+    },
+    {
+      "self_ref": "#/texts/59",
+      "parent": {
+        "$ref": "#/groups/2"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 285.3333333333333,
+            "t": 239.33333333333337,
+            "r": 297.6666666666667,
+            "b": 235.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            5
+          ]
+        }
+      ],
+      "orig": "CABO!",
+      "text": "CABO!"
+    },
+    {
+      "self_ref": "#/texts/60",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 220.0,
+            "t": 242.33333333333337,
+            "r": 235.66666666666666,
+            "b": 239.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "orig": "¿et",
+      "text": "¿et"
+    },
+    {
+      "self_ref": "#/texts/61",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 239.0,
+            "t": 244.0,
+            "r": 276.0,
+            "b": 239.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            13
+          ]
+        }
+      ],
+      "orig": "MUNICIPALIDAD",
+      "text": "MUNICIPALIDAD"
+    },
+    {
+      "self_ref": "#/texts/62",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 278.0,
+            "t": 244.33333333333337,
+            "r": 301.6666666666667,
+            "b": 240.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            9
+          ]
+        }
+      ],
+      "orig": "DISTRIJAL",
+      "text": "DISTRIJAL"
+    },
+    {
+      "self_ref": "#/texts/63",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 303.6666666666667,
+            "t": 247.33333333333337,
+            "r": 309.3333333333333,
+            "b": 236.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "orig": "DE",
+      "text": "DE"
+    },
+    {
+      "self_ref": "#/texts/64",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 311.3333333333333,
+            "t": 245.0,
+            "r": 324.3333333333333,
+            "b": 241.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            5
+          ]
+        }
+      ],
+      "orig": "TINTA",
+      "text": "TINTA"
+    },
+    {
+      "self_ref": "#/texts/65",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 218.33333333333334,
+            "t": 239.0,
+            "r": 220.0,
+            "b": 237.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "%",
+      "text": "%"
+    },
+    {
+      "self_ref": "#/texts/66",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 263.6666666666667,
+            "t": 239.0,
+            "r": 280.0,
+            "b": 235.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            6
+          ]
+        }
+      ],
+      "orig": "ANCHIS",
+      "text": "ANCHIS"
+    },
+    {
+      "self_ref": "#/texts/67",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 282.3333333333333,
+            "t": 237.66666666666663,
+            "r": 283.3333333333333,
+            "b": 237.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "-",
+      "text": "-"
+    },
+    {
+      "self_ref": "#/texts/68",
+      "parent": {
+        "$ref": "#/pictures/11"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 285.3333333333333,
+            "t": 239.33333333333337,
+            "r": 297.6666666666667,
+            "b": 235.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            5
+          ]
+        }
+      ],
+      "orig": "CABO!",
+      "text": "CABO!"
+    },
+    {
+      "self_ref": "#/texts/69",
+      "parent": {
+        "$ref": "#/groups/3"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "caption",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 483.3333333333333,
+            "t": 108.0,
+            "r": 568.3333333333334,
+            "b": 94.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            29
+          ]
+        }
+      ],
+      "orig": ".C.A. /356 SECRETARIA GENERAL",
+      "text": ".C.A. /356 SECRETARIA GENERAL"
+    },
+    {
+      "self_ref": "#/texts/70",
+      "parent": {
+        "$ref": "#/pictures/12"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "caption",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 483.3333333333333,
+            "t": 108.0,
+            "r": 568.3333333333334,
+            "b": 94.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            29
+          ]
+        }
+      ],
+      "orig": ".C.A. /356 SECRETARIA GENERAL",
+      "text": ".C.A. /356 SECRETARIA GENERAL"
+    },
+    {
+      "self_ref": "#/texts/71",
+      "parent": {
+        "$ref": "#/groups/4"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 47.666666666666664,
+            "t": 50.0,
+            "r": 74.66666666666667,
+            "b": 40.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            5
+          ]
+        }
+      ],
+      "orig": "Sitio",
+      "text": "Sitio"
+    },
+    {
+      "self_ref": "#/texts/72",
+      "parent": {
+        "$ref": "#/groups/4"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 78.66666666666667,
+            "t": 51.0,
+            "r": 546.3333333333334,
+            "b": 38.0,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            74
+          ]
+        }
+      ],
+      "orig": "Web: www.munitinta.gob.pe - Correo Electrónico: munitintaQmunitinta.gob.pe",
+      "text": "Web: www.munitinta.gob.pe - Correo Electrónico: munitintaQmunitinta.gob.pe"
+    },
+    {
+      "self_ref": "#/texts/73",
+      "parent": {
+        "$ref": "#/groups/4"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 135.0,
+            "t": 34.0,
+            "r": 458.3333333333333,
+            "b": 22.33333333333337,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            54
+          ]
+        }
+      ],
+      "orig": "Mesa de Partes Virtual - mesadepartesQmunitinta.gob.pe",
+      "text": "Mesa de Partes Virtual - mesadepartesQmunitinta.gob.pe"
+    },
+    {
+      "self_ref": "#/texts/74",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 37.0,
+            "t": 67.33333333333337,
+            "r": 556.6666666666666,
+            "b": 55.66666666666663,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            62
+          ]
+        }
+      ],
+      "orig": "PALACIO MUNICIPAL -PLAZA DE ARMAS N* 114 TINTA -CANCHIS -CUSCO",
+      "text": "PALACIO MUNICIPAL -PLAZA DE ARMAS N* 114 TINTA -CANCHIS -CUSCO"
+    }
+  ],
+  "pictures": [
+    {
+      "self_ref": "#/pictures/0",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/0"
+        },
+        {
+          "$ref": "#/texts/1"
+        },
+        {
+          "$ref": "#/texts/2"
+        },
+        {
+          "$ref": "#/texts/3"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 13.13115406036377,
+            "t": 823.5854473114014,
+            "r": 581.0475463867188,
+            "b": 748.5270004272461,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/1",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/10"
+        },
+        {
+          "$ref": "#/texts/11"
+        },
+        {
+          "$ref": "#/texts/12"
+        },
+        {
+          "$ref": "#/texts/13"
+        },
+        {
+          "$ref": "#/texts/14"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 15.747044563293457,
+            "t": 632.0056762695312,
+            "r": 83.22744750976562,
+            "b": 560.3952026367188,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/2",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/15"
+        },
+        {
+          "$ref": "#/texts/16"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 22.89900779724121,
+            "t": 551.0343322753906,
+            "r": 45.4039421081543,
+            "b": 530.1186218261719,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/3",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/19"
+        },
+        {
+          "$ref": "#/texts/20"
+        },
+        {
+          "$ref": "#/texts/21"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 9.88495922088623,
+            "t": 466.80718994140625,
+            "r": 83.94776153564453,
+            "b": 387.7321472167969,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/4",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/22"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 24.547216415405273,
+            "t": 321.780029296875,
+            "r": 45.81866455078125,
+            "b": 302.06427001953125,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/5",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/25"
+        },
+        {
+          "$ref": "#/texts/26"
+        },
+        {
+          "$ref": "#/texts/27"
+        },
+        {
+          "$ref": "#/texts/28"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 5.646162509918213,
+            "t": 297.4296875,
+            "r": 80.316162109375,
+            "b": 221.9200439453125,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/6",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 11.539119720458984,
+            "t": 828.49609375,
+            "r": 85.55014038085938,
+            "b": 749.9055099487305,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/7",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/37"
+        },
+        {
+          "$ref": "#/texts/38"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 4.23839807510376,
+            "t": 674.1047058105469,
+            "r": 78.41636657714844,
+            "b": 598.4233856201172,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/8",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 25.96270179748535,
+            "t": 550.0513916015625,
+            "r": 45.34148406982422,
+            "b": 530.1679077148438,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/9",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/39"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 3.490647554397583,
+            "t": 510.2428894042969,
+            "r": 76.56836700439453,
+            "b": 433.5929870605469,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/10",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 517.8972778320312,
+            "t": 825.0144805908203,
+            "r": 576.197509765625,
+            "b": 752.8577041625977,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/11",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/60"
+        },
+        {
+          "$ref": "#/texts/61"
+        },
+        {
+          "$ref": "#/texts/62"
+        },
+        {
+          "$ref": "#/texts/63"
+        },
+        {
+          "$ref": "#/texts/64"
+        },
+        {
+          "$ref": "#/texts/65"
+        },
+        {
+          "$ref": "#/texts/66"
+        },
+        {
+          "$ref": "#/texts/67"
+        },
+        {
+          "$ref": "#/texts/68"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 215.93624877929688,
+            "t": 245.83929443359375,
+            "r": 326.02984619140625,
+            "b": 201.51788330078125,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    },
+    {
+      "self_ref": "#/pictures/12",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [
+        {
+          "$ref": "#/texts/70"
+        }
+      ],
+      "content_layer": "body",
+      "label": "picture",
+      "prov": [
+        {
+          "page_no": 2,
+          "bbox": {
+            "l": 455.7162170410156,
+            "t": 152.65692138671875,
+            "r": 591.8207397460938,
+            "b": 93.3746337890625,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "captions": [],
+      "references": [],
+      "footnotes": [],
+      "annotations": []
+    }
+  ],
+  "tables": [],
+  "key_value_items": [],
+  "form_items": [],
+  "pages": {
+    "1": {
+      "size": {
+        "width": 594.0,
+        "height": 845.0
+      },
+      "page_no": 1
+    },
+    "2": {
+      "size": {
+        "width": 597.0,
+        "height": 847.0
+      },
+      "page_no": 2
+    }
+  }
+}

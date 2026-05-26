@@ -1,0 +1,11 @@
+# Conversion IA - bloque "MIT" (ligera + completa).
+#
+# Incluye:
+#   - pymupdf4llm: Markdown rapido y de alta calidad para PDFs digitales (usa PyMuPDF).
+#   - docling: motor completo para PDFs escaneados (con OCR Tesseract) y DOCX/PPTX/HTML.
+#     Descarga modelos en la primera ejecucion (cientos de MB).
+#
+# Instalar con:
+#   .venv/bin/python -m pip install -r requirements-ai-docling.txt
+pymupdf4llm>=0.0.20
+docling>=2.0

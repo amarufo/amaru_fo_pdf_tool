@@ -7,6 +7,7 @@ Crea archivos temporales y valida comandos principales sin tocar documentos real
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import tempfile
 import zipfile
 from pathlib import Path
@@ -91,16 +92,85 @@ def run_audit(output_dir: Path) -> None:
     print(f"Carpeta revisada: {output_dir}")
 
 
+def check_installation() -> int:
+    print("Estado de dependencias:")
+    modules = [
+        ("fitz", "pymupdf", True),
+        ("rich", "rich", True),
+        ("pikepdf", "pikepdf", False),
+        ("pytesseract", "pytesseract", False),
+        ("PIL", "pillow", False),
+        ("pymupdf4llm", "pymupdf4llm", False),
+        ("docling", "docling", False),
+        ("marker", "marker-pdf", False),
+    ]
+    missing_required = 0
+    for module_name, package_name, required in modules:
+        present = importlib.util.find_spec(module_name) is not None
+        flag = "OK" if present else ("FALTA" if required else "opcional, no instalado")
+        marker = " [REQUERIDO]" if required else ""
+        print(f"  {package_name:<15s} {flag}{marker}")
+        if required and not present:
+            missing_required += 1
+    tess = pdftool._detect_tesseract_path()
+    print(f"  tesseract bin   {'OK ('+tess+')' if tess else 'no encontrado'}")
+    if missing_required:
+        print(f"FALTAN {missing_required} dependencias requeridas")
+        return 1
+    print("INSTALACION OK")
+    return 0
+
+
+def run_ai_audit(output_dir: Path) -> None:
+    sample = output_dir / "sample.pdf"
+    if not sample.exists():
+        make_sample_pdf(sample)
+    backends_to_try = []
+    if pdftool._pymupdf4llm_available():
+        backends_to_try.append("pymupdf4llm")
+    if pdftool._docling_available():
+        backends_to_try.append("docling")
+    if pdftool._marker_available():
+        backends_to_try.append("marker")
+    if not backends_to_try:
+        print("Conversion IA: ningun motor instalado, omitido.")
+        return
+    ai_dir = output_dir / "ai"
+    ai_dir.mkdir(parents=True, exist_ok=True)
+    for backend in backends_to_try:
+        target = ai_dir / backend
+        target.mkdir(parents=True, exist_ok=True)
+        try:
+            outputs = pdftool.cmd_convert_ai(
+                [sample], backend=backend, formats="md,json", output_dir=target,
+            )
+            for output in outputs:
+                require_file(output)
+            print(f"Conversion IA con {backend}: OK ({len(outputs)} archivos en {target})")
+        except Exception as exc:
+            print(f"Conversion IA con {backend}: FALLO ({type(exc).__name__}: {exc})")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Auditoria rapida de amaru_fo PDF TOOL")
     parser.add_argument("--output-dir", type=Path, default=None, help="Carpeta donde dejar archivos de auditoria")
+    parser.add_argument("--check-installation", action="store_true", help="Verificar que dependencias estan instaladas y salir")
+    parser.add_argument("--include-ai", action="store_true", help="Probar tambien conversion IA (pymupdf4llm/Docling/Marker) si estan instalados")
     args = parser.parse_args()
+
+    if args.check_installation:
+        return check_installation()
 
     if args.output_dir:
         run_audit(args.output_dir)
+        if args.include_ai:
+            run_ai_audit(args.output_dir)
     else:
         with tempfile.TemporaryDirectory(prefix="pdftool_audit_") as temp_dir:
-            run_audit(Path(temp_dir))
+            temp_path = Path(temp_dir)
+            run_audit(temp_path)
+            if args.include_ai:
+                run_ai_audit(temp_path)
     return 0
 
 

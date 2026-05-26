@@ -1,0 +1,6 @@
+# Conversion IA con Marker (licencia GPL-3 - revisa compatibilidad de tu proyecto).
+# Calidad superior en PDFs cientificos y documentos complejos.
+# Requiere PyTorch y descarga modelos en la primera ejecucion (varios GB).
+# Instalar con:
+#   .venv/bin/python -m pip install -r requirements-ai-marker.txt
+marker-pdf>=1.0

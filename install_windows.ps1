@@ -70,10 +70,10 @@ New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 Copy-Item -Path (Join-Path $SourceDir "pdftool.py") -Destination $InstallDir -Force
 Copy-Item -Path (Join-Path $SourceDir "requirements.txt") -Destination $InstallDir -Force
 Copy-Item -Path (Join-Path $SourceDir "requirements-optional.txt") -Destination $InstallDir -Force
+Copy-Item -Path (Join-Path $SourceDir "requirements-ai-docling.txt") -Destination $InstallDir -Force -ErrorAction SilentlyContinue
+Copy-Item -Path (Join-Path $SourceDir "requirements-ai-marker.txt") -Destination $InstallDir -Force -ErrorAction SilentlyContinue
 Copy-Item -Path (Join-Path $SourceDir "ascci.txt") -Destination $InstallDir -Force -ErrorAction SilentlyContinue
 Copy-Item -Path (Join-Path $SourceDir "README.md") -Destination $InstallDir -Force -ErrorAction SilentlyContinue
-Copy-Item -Path (Join-Path $SourceDir "PDFTOOL.md") -Destination $InstallDir -Force
-Copy-Item -Path (Join-Path $SourceDir "LEEME_PRIMERO.txt") -Destination $InstallDir -Force -ErrorAction SilentlyContinue
 
 Write-Step "2. Buscando Python"
 $PythonExe = Find-Python
@@ -131,7 +131,33 @@ if ($InstallOcr.Trim().ToLower() -ne "n") {
     Write-Host "OCR omitido. Puedes instalarlo despues desde: $TesseractUrl" -ForegroundColor Yellow
 }
 
-Write-Step "6. Creando archivo para abrir la herramienta"
+Write-Step "6. Conversion IA MIT: pymupdf4llm + Docling - opcional"
+Write-Host "pymupdf4llm convierte PDFs digitales a Markdown rapido y sin modelos." -ForegroundColor Cyan
+Write-Host "Docling convierte documentos escaneados a Markdown/JSON; con Tesseract mejora el OCR en espanol." -ForegroundColor Cyan
+Write-Host "Docling puede descargar modelos en la primera ejecucion (cientos de MB)." -ForegroundColor Cyan
+$InstallDocling = Read-Host "Instalar conversion IA MIT ahora? [S/n]"
+if ($InstallDocling.Trim().ToLower() -ne "n") {
+    & $VenvPython -m pip install -r (Join-Path $InstallDir "requirements-ai-docling.txt")
+    & $VenvPython -c "import pymupdf4llm, docling; print('pymupdf4llm y Docling listos')" 2>$null
+} else {
+    Write-Host "Conversion IA MIT omitida. Para instalarla despues: .venv\Scripts\python.exe -m pip install -r requirements-ai-docling.txt" -ForegroundColor Yellow
+}
+
+Write-Step "7. Conversion IA con Marker (GPL-3) - opcional"
+Write-Host "Marker ofrece mas calidad en PDFs complejos PERO esta bajo licencia GPL-3." -ForegroundColor Yellow
+Write-Host "Si distribuiras este proyecto, valida la compatibilidad de licencias." -ForegroundColor Yellow
+$InstallMarker = Read-Host "Instalar Marker ahora? [s/N]"
+if ($InstallMarker.Trim().ToLower() -eq "s" -or $InstallMarker.Trim().ToLower() -eq "y") {
+    & $VenvPython -m pip install -r (Join-Path $InstallDir "requirements-ai-marker.txt")
+    & $VenvPython -c "import marker; print('Marker listo')" 2>$null
+} else {
+    Write-Host "Marker omitido. Para instalarlo despues: .venv\Scripts\python.exe -m pip install -r requirements-ai-marker.txt" -ForegroundColor Yellow
+}
+
+Write-Step "8. Validando entorno"
+& $VenvPython -c "import importlib.util as iu; mods=[('fitz','pymupdf'),('rich','rich'),('pikepdf','pikepdf'),('pytesseract','pytesseract'),('PIL','pillow'),('pymupdf4llm','pymupdf4llm'),('docling','docling'),('marker','marker-pdf')]; [print(f'  {pkg:<15s} {\"OK\" if iu.find_spec(mod) else \"no instalado\"}') for mod,pkg in mods]"
+
+Write-Step "9. Creando archivo para abrir la herramienta"
 $RunBat = Join-Path $InstallDir "abrir_amaru_fo_pdf_tool.bat"
 @"
 @echo off
@@ -143,7 +169,7 @@ echo Puedes cerrar esta ventana.
 pause >nul
 "@ | Set-Content -Path $RunBat -Encoding ASCII
 
-Write-Step "7. Creando acceso directo en el Escritorio"
+Write-Step "10. Creando acceso directo en el Escritorio"
 $WScriptShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WScriptShell.CreateShortcut($ShortcutPath)
 $Shortcut.TargetPath = $RunBat

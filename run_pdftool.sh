@@ -7,6 +7,13 @@ if [[ -x .venv/bin/python ]]; then
     exec .venv/bin/python pdftool.py menu
 fi
 
+printf 'No encontre .venv local. Se ejecutara el instalador Linux.\n'
+./install_linux.sh
+
+if [[ -x .venv/bin/python ]]; then
+    exec .venv/bin/python pdftool.py menu
+fi
+
 if command -v python3 >/dev/null 2>&1; then
     exec python3 pdftool.py menu
 fi
