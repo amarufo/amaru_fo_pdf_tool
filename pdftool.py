@@ -1055,6 +1055,28 @@ def _pdf_has_text_layer(path: Path, sample_pages: int = 3) -> bool:
         return True  # ante la duda, asumir que si tiene texto
 
 
+def _pdf_has_images(path: Path, sample_pages: int = 8) -> bool:
+    """True si el PDF tiene al menos una imagen rasterizada en las primeras paginas.
+
+    Sirve para decidir si vale la pena OCR-ear las regiones de imagen (diagramas,
+    graficos con texto) aun cuando la pagina ya tenga capa de texto digital.
+    """
+    if path.suffix.lower() != ".pdf":
+        return False
+    try:
+        doc = fitz.open(path)
+        try:
+            pages = min(sample_pages, len(doc))
+            for i in range(pages):
+                if doc[i].get_images(full=False):
+                    return True
+            return False
+        finally:
+            doc.close()
+    except Exception:
+        return False
+
+
 def _resolve_ai_backend(requested: str, sources_hint: list[Path] | None = None) -> str:
     backend = (requested or "auto").lower()
     if backend not in AI_BACKENDS:
@@ -1125,6 +1147,124 @@ def _convert_with_pymupdf4llm(input_path: Path, formats: list[str], output_dir: 
     return written
 
 
+def _docling_inject_image_text(document, md_text: str) -> str:
+    """Sustituye los placeholders ``<!-- image -->`` por el texto OCR-eado dentro
+    de cada PictureItem (cuando lo hay), respetando el orden de aparicion en el
+    markdown que produce Docling.
+
+    Docling reconoce los diagramas/graficos como ``PictureItem`` y los exporta
+    como un comentario HTML vacio, perdiendo el texto que el OCR extrajo de las
+    cajas. Aqui mapeamos cada picture con los ``TextItem`` cuyo bounding box
+    cae dentro del bbox del picture y los inyectamos como un bloque markdown.
+    """
+    placeholder = "<!-- image -->"
+    if placeholder not in md_text:
+        return md_text
+    pictures = list(getattr(document, "pictures", []) or [])
+    if not pictures:
+        return md_text
+
+    # Preparar lista de textos por pagina con su bbox en origen top-left.
+    text_index: dict[int, list[tuple[object, str]]] = {}
+    for item in getattr(document, "texts", []) or []:
+        text_value = (getattr(item, "text", "") or "").strip()
+        if not text_value:
+            continue
+        provs = getattr(item, "prov", None) or []
+        for prov in provs:
+            page_no = getattr(prov, "page_no", None)
+            bbox = getattr(prov, "bbox", None)
+            if page_no is None or bbox is None:
+                continue
+            page_obj = document.pages.get(page_no) if hasattr(document, "pages") else None
+            page_height = getattr(getattr(page_obj, "size", None), "height", None)
+            if page_height:
+                try:
+                    bbox = bbox.to_top_left_origin(page_height=page_height)
+                except Exception:
+                    pass
+            text_index.setdefault(page_no, []).append((bbox, text_value))
+
+    blocks: list[str] = []
+    for picture in pictures:
+        provs = getattr(picture, "prov", None) or []
+        if not provs:
+            blocks.append("")
+            continue
+        prov = provs[0]
+        page_no = getattr(prov, "page_no", None)
+        pic_bbox = getattr(prov, "bbox", None)
+        if page_no is None or pic_bbox is None:
+            blocks.append("")
+            continue
+        page_obj = document.pages.get(page_no) if hasattr(document, "pages") else None
+        page_height = getattr(getattr(page_obj, "size", None), "height", None)
+        if page_height:
+            try:
+                pic_bbox = pic_bbox.to_top_left_origin(page_height=page_height)
+            except Exception:
+                pass
+        candidates: list[tuple[float, float, float, str]] = []
+        for bbox, text_value in text_index.get(page_no, []):
+            try:
+                ios = bbox.intersection_over_self(pic_bbox)
+            except Exception:
+                ios = 0.0
+            if ios < 0.5:
+                continue
+            top = getattr(bbox, "t", 0.0)
+            bottom = getattr(bbox, "b", top)
+            left = getattr(bbox, "l", 0.0)
+            candidates.append((top, bottom, left, text_value))
+        if not candidates:
+            blocks.append("")
+            continue
+        # Agrupar por filas visuales (palabras con centros verticales cercanos)
+        # y luego unir las palabras de cada fila por espacios.
+        candidates.sort(key=lambda c: (c[0], c[2]))
+        heights = [abs(c[1] - c[0]) for c in candidates if abs(c[1] - c[0]) > 0]
+        row_tol = (sum(heights) / len(heights) * 0.6) if heights else 5.0
+        rows: list[list[tuple[float, float, str]]] = []
+        current_row: list[tuple[float, float, str]] = []
+        current_center = None
+        for top, bottom, left, text_value in candidates:
+            center = (top + bottom) / 2.0
+            if current_center is None or abs(center - current_center) <= row_tol:
+                current_row.append((top, left, text_value))
+                if current_center is None:
+                    current_center = center
+                else:
+                    current_center = (current_center + center) / 2.0
+            else:
+                rows.append(current_row)
+                current_row = [(top, left, text_value)]
+                current_center = center
+        if current_row:
+            rows.append(current_row)
+        lines: list[str] = []
+        for row in rows:
+            row.sort(key=lambda c: c[1])
+            line = " ".join(text_value for _, _, text_value in row).strip()
+            if line:
+                lines.append(line)
+        if lines:
+            blocks.append("\n".join(f"- {line}" for line in lines))
+        else:
+            blocks.append("")
+
+    # Reemplazar cada placeholder por su bloque en orden.
+    parts = md_text.split(placeholder)
+    rebuilt = [parts[0]]
+    for index, segment in enumerate(parts[1:]):
+        block = blocks[index] if index < len(blocks) else ""
+        if block:
+            rebuilt.append("\n\n**Contenido del diagrama (OCR):**\n\n" + block + "\n\n")
+        else:
+            rebuilt.append(placeholder)
+        rebuilt.append(segment)
+    return "".join(rebuilt)
+
+
 def _convert_with_docling(
     input_path: Path,
     formats: list[str],
@@ -1134,30 +1274,53 @@ def _convert_with_docling(
 ) -> list[Path]:
     from docling.document_converter import DocumentConverter  # type: ignore
 
-    # Decidir si activar OCR Tesseract (mejor calidad en PDFs escaneados)
-    use_ocr_tesseract = False
-    if ocr in ("on", "force", "true", "yes"):
-        use_ocr_tesseract = True
-    elif ocr == "auto" and input_path.suffix.lower() == ".pdf" and not _pdf_has_text_layer(input_path):
-        use_ocr_tesseract = True
+    is_pdf = input_path.suffix.lower() == ".pdf"
+    scanned = is_pdf and not _pdf_has_text_layer(input_path)
+    has_images = is_pdf and _pdf_has_images(input_path)
 
-    if use_ocr_tesseract:
+    # Decidir modo OCR para Docling:
+    #   - "off"  : sin OCR.
+    #   - "on"   : OCR de pagina completa (re-OCR de todo).
+    #   - "auto" : escaneado -> OCR de pagina completa.
+    #              digital con imagenes (diagramas, graficos) -> OCR solo en
+    #              regiones de imagen para capturar texto embebido.
+    #              digital sin imagenes -> sin OCR.
+    ocr_mode = (ocr or "auto").lower()
+    use_ocr = False
+    force_full_page = False
+    if ocr_mode in ("on", "force", "true", "yes"):
+        use_ocr = True
+        force_full_page = True
+    elif ocr_mode == "auto" and is_pdf:
+        if scanned:
+            use_ocr = True
+            force_full_page = True
+        elif has_images:
+            use_ocr = True
+            force_full_page = False
+
+    converter = None
+    if use_ocr:
         try:
             from docling.datamodel.pipeline_options import PdfPipelineOptions, TesseractCliOcrOptions  # type: ignore
             from docling.datamodel.base_models import InputFormat  # type: ignore
             from docling.document_converter import PdfFormatOption  # type: ignore
             lang_list = [item.strip() for item in re.split(r"[,;+\s]+", lang) if item.strip()] or ["spa"]
+            ocr_options = TesseractCliOcrOptions(
+                lang=lang_list,
+                force_full_page_ocr=force_full_page,
+            )
             pipeline_options = PdfPipelineOptions(
                 do_ocr=True,
-                ocr_options=TesseractCliOcrOptions(lang=lang_list),
+                ocr_options=ocr_options,
             )
             converter = DocumentConverter(
                 format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)}
             )
         except Exception as exc:
-            warn(f"No se pudo configurar Tesseract en Docling ({exc}). Usando OCR por defecto.")
-            converter = DocumentConverter()
-    else:
+            warn(f"No se pudo configurar Tesseract en Docling ({exc}). Usando configuracion por defecto.")
+            converter = None
+    if converter is None:
         converter = DocumentConverter()
 
     result = converter.convert(str(input_path))
@@ -1168,7 +1331,10 @@ def _convert_with_docling(
     stem = input_path.stem
     if "md" in formats:
         md_path = target_dir / f"{stem}.md"
-        md_path.write_text(document.export_to_markdown(), encoding="utf-8")
+        md_text = document.export_to_markdown()
+        if use_ocr:
+            md_text = _docling_inject_image_text(document, md_text)
+        md_path.write_text(md_text, encoding="utf-8")
         written.append(md_path)
     if "json" in formats:
         import json as _json
@@ -1885,10 +2051,11 @@ def interactive() -> None:
                 console.print(Panel.fit(
                     "Conversion de alta calidad a Markdown / JSON.\n"
                     "Preserva columnas, tablas y orden de lectura para agentes IA.\n"
-                    "[bold]pymupdf4llm[/bold] (MIT, ligero) - ideal para PDFs digitales.\n"
-                    "[bold]Docling[/bold] (MIT) + Tesseract - ideal para PDFs escaneados.\n"
-                    "[bold]Marker[/bold] (GPL-3) - maxima calidad en PDFs complejos.",
-                    title="Conversion IA (auto / pymupdf4llm / Docling / Marker)",
+                    "[bold]Docling[/bold] (MIT, por defecto) + Tesseract - mejor calidad general,\n"
+                    "  extrae texto dentro de diagramas e imagenes con OCR.\n"
+                    "[bold]pymupdf4llm[/bold] (MIT, ligero) - rapido para PDFs digitales simples.\n"
+                    "[bold]Marker[/bold] (GPL-3) - maxima calidad en PDFs muy complejos.",
+                    title="Conversion IA (docling / pymupdf4llm / Marker / auto)",
                     border_style="cyan",
                 ))
                 mode = Prompt.ask("Origen", choices=["archivo", "lista", "carpeta"], default="archivo")
@@ -1903,14 +2070,13 @@ def interactive() -> None:
                 # Mostrar sugerencia segun primer archivo
                 first_pdf = next((s for s in sources if s.is_file() and s.suffix.lower() == ".pdf"), None)
                 if first_pdf and not _pdf_has_text_layer(first_pdf):
-                    console.print("[yellow]Detectado PDF escaneado.[/yellow] Recomendado: [bold]auto[/bold] o [bold]docling[/bold] con OCR Tesseract.")
-                    default_backend = "auto" if backends_state["docling"] else "docling"
-                elif backends_state["pymupdf4llm"]:
-                    default_backend = "pymupdf4llm"
-                elif backends_state["docling"]:
-                    default_backend = "docling"
-                else:
-                    default_backend = "auto"
+                    console.print("[yellow]Detectado PDF escaneado.[/yellow] Docling + OCR Tesseract capturara el texto.")
+                elif first_pdf and _pdf_has_images(first_pdf):
+                    console.print("[yellow]El PDF contiene imagenes/diagramas con posible texto.[/yellow] Docling + OCR sobre imagenes lo extraera.")
+                # Docling es el motor por defecto (mejor calidad para PDFs reales).
+                default_backend = "docling" if backends_state["docling"] else (
+                    "pymupdf4llm" if backends_state["pymupdf4llm"] else "auto"
+                )
                 backend = Prompt.ask("Motor", choices=list(AI_BACKENDS), default=default_backend)
                 formats = Prompt.ask("Formatos de salida (md, json o md,json)", default="md,json")
                 recursive = Confirm.ask("Buscar tambien en subcarpetas", default=False) if mode == "carpeta" else False
@@ -2162,7 +2328,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Convertir documentos a Markdown/JSON con Docling (MIT) o Marker (GPL-3).",
     )
     convert_ai.add_argument("sources", nargs="+", type=Path, help="Archivos o carpetas de entrada.")
-    convert_ai.add_argument("--backend", choices=list(AI_BACKENDS), default="auto", help="Motor de conversion IA.")
+    convert_ai.add_argument(
+        "--backend",
+        choices=list(AI_BACKENDS),
+        default="docling",
+        help="Motor de conversion IA (por defecto: docling).",
+    )
     convert_ai.add_argument("--formats", default="md,json", help="Formatos de salida (md, json o md,json).")
     convert_ai.add_argument(
         "--extensions",
